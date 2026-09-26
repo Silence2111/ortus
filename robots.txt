@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ortus.ru/sitemap.xml
+# служебные файлы индексировать незачем
+Disallow: /ПРОДУКТ/
+
+Sitemap: https://ortusdigital.ru/sitemap.xml
