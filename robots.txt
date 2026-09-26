@@ -4,4 +4,4 @@ Allow: /
 # служебные файлы индексировать незачем
 Disallow: /ПРОДУКТ/
 
-Sitemap: https://ortusdigital.ru/sitemap.xml
+Sitemap: {{SITE_ORIGIN}}/sitemap.xml

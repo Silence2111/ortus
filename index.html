@@ -6,7 +6,7 @@
 <title>Сайты, реклама, ИИ и 1С под одной крышей — агентство Ортус</title>
 <meta name="description" content="Цифровое агентство Ортус: сайты, реклама на WB и Ozon, Telegram Ads, ИИ-боты, SEO и 1С. Цены на витрине, договор и маркировка рекламы, разбор задачи бесплатно.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ortusdigital.ru/">
+<link rel="canonical" href="{{SITE_ORIGIN}}/">
 <meta name="theme-color" content="#FAF9F9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#241E24" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Сайты, реклама, ИИ и 1С под одной крышей — агентство Ортус">
 <meta property="og:description" content="Цифровое агентство Ортус: сайты, реклама на WB и Ozon, Telegram Ads, ИИ-боты, SEO и 1С. Цены на витрине, договор и маркировка рекламы, разбор задачи бесплатно.">
-<meta property="og:url" content="https://ortusdigital.ru/">
-<meta property="og:image" content="https://ortusdigital.ru/og.png">
+<meta property="og:url" content="{{SITE_ORIGIN}}/">
+<meta property="og:image" content="{{SITE_ORIGIN}}/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Сайты, реклама, ИИ и 1С под одной крышей — агентство Ортус">
 <meta name="twitter:description" content="Цифровое агентство Ортус: сайты, реклама на WB и Ozon, Telegram Ads, ИИ-боты, SEO и 1С. Цены на витрине, договор и маркировка рекламы, разбор задачи бесплатно.">
@@ -248,8 +248,8 @@
   
   .btn.accent:hover{background-position:100% 50%}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Ортус", "url": "https://ortusdigital.ru/", "description": "Цифровое агентство Ортус: сайты, реклама на WB и Ozon, Telegram Ads, ИИ-боты, SEO и 1С. Цены на витрине, договор и маркировка рекламы, разбор задачи бесплатно.", "areaServed": "RU", "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "hello@ortusdigital.ru"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Ортус — цифровое агентство", "url": "https://ortusdigital.ru/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Ортус", "url": "{{SITE_ORIGIN}}/", "description": "Цифровое агентство Ортус: сайты, реклама на WB и Ozon, Telegram Ads, ИИ-боты, SEO и 1С. Цены на витрине, договор и маркировка рекламы, разбор задачи бесплатно.", "areaServed": "RU"<!--IF:email-->, "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "{{CONTACT_EMAIL}}"}<!--/IF:email-->}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Ортус — цифровое агентство", "url": "{{SITE_ORIGIN}}/"}</script>
 
 <style>
   /* --- слой telescope: тёмный герой, молочное тело, один тёплый акцент --- */
@@ -552,7 +552,7 @@
       </div>
       <div><h4>Услуги</h4><a href="razrabotka-sajtov.html">Разработка сайтов</a><a href="ii-avtomatizaciya.html">ИИ и автоматизация</a><a href="seo.html">SEO и реклама</a><a href="reklama-marketplace.html">Маркетплейсы</a><a href="vnedrenie-1c.html">Внедрение 1С</a></div>
       <div><h4>Компания</h4><a href="o-nas.html">О нас</a><a href="cases.html">Работы</a><a href="blog.html">Блог</a><a href="partnyoram.html">Стать партнёром</a></div>
-      <div><h4>Контакты</h4><a href="kontakty.html">Telegram</a><a href="kontakty.html">WhatsApp</a><a href="mailto:hello@ortusdigital.ru">hello@ortusdigital.ru</a></div>
+      <div><h4>Контакты</h4><!--IF:telegram--><a href="{{TELEGRAM_URL}}">Telegram</a><!--/IF:telegram--><!--IF:whatsapp--><a href="{{WHATSAPP_URL}}">WhatsApp</a><!--/IF:whatsapp--><!--IF:phone--><a href="tel:{{PHONE_HREF}}">{{PHONE}}</a><!--/IF:phone--><!--IF:email--><a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><!--/IF:email--><a href="kontakty.html">Все контакты</a></div>
     </div>
     <div class="foot-bottom">
       <span>© 2026 Ортус</span>

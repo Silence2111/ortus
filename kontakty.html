@@ -6,7 +6,7 @@
 <title>Контакты — цифровое агентство Ортус</title>
 <meta name="description" content="Контакты цифрового агентства Ортус: Telegram, WhatsApp, email и форма заявки. Ответим в течение дня.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ortusdigital.ru/kontakty.html">
+<link rel="canonical" href="{{SITE_ORIGIN}}/kontakty.html">
 <meta name="theme-color" content="#FAF9F9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#241E24" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Контакты — цифровое агентство Ортус">
 <meta property="og:description" content="Контакты цифрового агентства Ортус: Telegram, WhatsApp, email и форма заявки. Ответим в течение дня.">
-<meta property="og:url" content="https://ortusdigital.ru/kontakty.html">
-<meta property="og:image" content="https://ortusdigital.ru/og.png">
+<meta property="og:url" content="{{SITE_ORIGIN}}/kontakty.html">
+<meta property="og:image" content="{{SITE_ORIGIN}}/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='24' y2='24'%3E%3Cstop offset='0' stop-color='%23FF7A00'/%3E%3Cstop offset='1' stop-color='%23FF9A3C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M12 2 3 7v10l9 5 9-5V7z' fill='none' stroke='url(%23g)' stroke-width='1.7' stroke-linejoin='round'/%3E%3Cpath d='M12 7v10M7.5 9.5 12 12l4.5-2.5' fill='none' stroke='url(%23g)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -246,8 +246,8 @@
   .metric-sm{font-size:26px;font-weight:600;letter-spacing:-.03em}
   .req{max-width:560px;margin:26px auto 0;text-align:center;color:var(--faint);font-size:13.5px;line-height:1.6}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Ортус", "url": "https://ortusdigital.ru/", "areaServed": "RU", "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "hello@ortusdigital.ru"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://ortusdigital.ru/"}, {"@type": "ListItem", "position": 2, "name": "Контакты", "item": "https://ortusdigital.ru/kontakty.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Ортус", "url": "{{SITE_ORIGIN}}/", "areaServed": "RU"<!--IF:email-->, "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "{{CONTACT_EMAIL}}"}<!--/IF:email-->}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "{{SITE_ORIGIN}}/"}, {"@type": "ListItem", "position": 2, "name": "Контакты", "item": "{{SITE_ORIGIN}}/kontakty.html"}]}</script>
 
 <style>
   /* --- слой telescope: тёмный герой, молочное тело, один тёплый акцент --- */
@@ -317,12 +317,15 @@
     <h1 class="rv">Расскажите о задаче</h1><p class="lead rv">Ответим в течение дня. Выберите удобный способ связи или оставьте заявку.</p>
   </div></header>
 <section class="blk sep"><div class="wrap-wide">
-  <div class="grid3 chn">
-    <a class="card rv" href="#" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.2M21 4l-3 15-6-5.8M21 4L9 13.2"/></svg></div><h3>Telegram</h3><p>@ваш_аккаунт — самый быстрый способ связи.</p></a>
-    <a class="card rv" href="#" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 9 19.5L4 20Z"/><path d="M9 10c0 3 2 5 5 5"/></svg></div><h3>WhatsApp</h3><p>Напишите нам в мессенджере.</p></a>
-    <a class="card rv" href="mailto:hello@ortusdigital.ru" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div><h3>Email</h3><p>hello@ortusdigital.ru — для писем и документов.</p></a>
-  </div>
-  <div class="req rv">ИП Фамилия И. О. · ИНН 000000000000 · реквизиты — placeholder, заменить на реальные.</div>
+<!--IF:channels-->  <div class="grid3 chn">
+<!--IF:telegram-->    <a class="card rv" href="{{TELEGRAM_URL}}" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.2M21 4l-3 15-6-5.8M21 4L9 13.2"/></svg></div><h3>Telegram</h3><p>{{TELEGRAM_HANDLE}} — самый быстрый способ связи.</p></a>
+<!--/IF:telegram--><!--IF:whatsapp-->    <a class="card rv" href="{{WHATSAPP_URL}}" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 9 19.5L4 20Z"/><path d="M9 10c0 3 2 5 5 5"/></svg></div><h3>WhatsApp</h3><p>Напишите нам в мессенджере.</p></a>
+<!--/IF:whatsapp--><!--IF:phone-->    <a class="card rv" href="tel:{{PHONE_HREF}}" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg></div><h3>Телефон</h3><p>{{PHONE}} — с 10 до 19 по Москве.</p></a>
+<!--/IF:phone--><!--IF:email-->    <a class="card rv" href="mailto:{{CONTACT_EMAIL}}" style="display:block"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div><h3>Email</h3><p>{{CONTACT_EMAIL}} — для писем и документов.</p></a>
+<!--/IF:email-->  </div>
+<!--/IF:channels--><!--IFNOT:channels-->  <div class="req rv">Прямых контактов пока не публикуем — единственный рабочий способ связи это форма ниже. Ответ придёт на указанный вами телефон или Telegram.</div>
+<!--/IFNOT:channels--><!--IF:legal-->  <div class="req rv">{{LEGAL}}</div>
+<!--/IF:legal-->
 </div></section>
 <section class="cta-blk sep" id="cta">
   <div class="cta-in wrap" style="max-width:720px">
@@ -349,7 +352,7 @@
       </div>
       <div><h4>Услуги</h4><a href="razrabotka-sajtov.html">Разработка сайтов</a><a href="ii-avtomatizaciya.html">ИИ и автоматизация</a><a href="reklama-marketplace.html">Реклама на WB / Ozon</a><a href="seo.html">SEO-продвижение</a><a href="vnedrenie-1c.html">Внедрение 1С</a></div>
       <div><h4>Компания</h4><a href="o-nas.html">О нас</a><a href="cases.html">Кейсы</a><a href="blog.html">Блог</a><a href="partnyoram.html">Стать партнёром</a></div>
-      <div><h4>Контакты</h4><a href="kontakty.html">Telegram</a><a href="kontakty.html">WhatsApp</a><a href="mailto:hello@ortusdigital.ru">hello@ortusdigital.ru</a></div>
+      <div><h4>Контакты</h4><!--IF:telegram--><a href="{{TELEGRAM_URL}}">Telegram</a><!--/IF:telegram--><!--IF:whatsapp--><a href="{{WHATSAPP_URL}}">WhatsApp</a><!--/IF:whatsapp--><!--IF:phone--><a href="tel:{{PHONE_HREF}}">{{PHONE}}</a><!--/IF:phone--><!--IF:email--><a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><!--/IF:email--><a href="kontakty.html">Все контакты</a></div>
     </div>
     <div class="foot-bottom"><span>© 2026 Ортус</span><span>Работаем по договору · Маркировка рекламы (erid)</span></div>
   </div>
