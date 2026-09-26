@@ -1,0 +1,10 @@
+{
+  "name": "ortus-site",
+  "private": true,
+  "description": "Витрина цифрового агентства «Ортус». Статика + сборка без зависимостей.",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check",
+    "test": "node --test тесты/витрина.test.mjs"
+  }
+}
