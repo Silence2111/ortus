@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node build.mjs",
     "check": "node build.mjs --check",
-    "test": "node --test тесты/витрина.test.mjs"
+    "test": "node --test тесты/витрина.test.mjs",
+    "demo": "SITE_ORIGIN=https://demo.invalid node build.mjs && echo 'Открыть: http://localhost:8080' && python3 -m http.server 8080 -d dist"
   }
 }
