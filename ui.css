@@ -1,0 +1,59 @@
+/* Общий слой поверх встроенных стилей страниц (подключается последним).
+ * Здесь только то, что одинаково на всех 23 страницах и что аудит UX/UI
+ * нашёл сломанным: контраст серого, цели нажатия, меню на телефоне,
+ * фокус с клавиатуры, состояния формы. Палитра — та же, telescope. */
+
+/* 1. Контраст. Было: --muted #807D78 = 3,9:1 и --faint #A8A39B = 2,4:1 на
+ *    молочном фоне — ниже 4,5:1, серый текст на сером. Тот же тёплый тон, темнее. */
+:root{--muted:#6F6A64;--faint:#736E67}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--muted:#B3ABA2;--faint:#A39B92}}
+:root[data-theme="light"]{--muted:#6F6A64;--faint:#736E67}
+:root[data-theme="dark"]{--muted:#B3ABA2;--faint:#A39B92}
+
+/* 2. Кнопки: цель нажатия не меньше 44 px, видимый фокус, disabled похож на disabled. */
+.btn{min-height:44px;padding:11px 20px;justify-content:center}
+.btn.lg{min-height:52px}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn[disabled],.btn[aria-busy="true"]{opacity:.6;cursor:progress;transform:none!important;box-shadow:none!important}
+@media (hover:none){.btn:hover,.card:hover{transform:none}}
+
+/* 3. Заголовки секций: колонка шириной 36ch считалась от 17-px текста, и h2
+ *    ломался по два слова в строку («Агентство, а / не фрилансер»). */
+.sec-head{max-width:760px}
+.sec-head h2{max-width:22ch;margin-left:auto;margin-right:auto}
+
+/* 4. Меню на телефоне. Было display:none — на 23 страницах с телефона
+ *    нельзя было попасть никуда, кроме формы. Теперь вторая строка шапки
+ *    с горизонтальной прокруткой, каждый пункт 44 px в высоту. */
+@media (max-width:840px){
+  .nav-in{height:auto;flex-wrap:wrap;row-gap:0;padding-top:8px;padding-bottom:0}
+  .nav-links{display:flex;order:3;flex:0 0 calc(100% + 48px);margin:4px -24px 0;padding:0 24px;gap:22px;
+    overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-top:1px solid rgba(255,255,255,.08)}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{line-height:44px;white-space:nowrap;opacity:1}
+}
+
+/* 5. Форма заявки: ошибка у поля после ухода из него, общий блок ошибки
+ *    вместо alert(), подтверждение успеха. */
+.lead-form input[aria-invalid="true"],.lead-form textarea[aria-invalid="true"]{border-color:#C4320A;box-shadow:0 0 0 3px rgba(196,50,10,.14)}
+.lf-err{display:none;font-size:13px;font-weight:500;color:#B42A08;margin-top:-1px}
+.lf-err.show{display:block}
+.lf-fail{display:none;font-size:14px;line-height:1.5;color:#8A2206;background:#FDECE6;border-radius:14px;padding:14px 16px;text-align:left}
+.lf-fail.show{display:block}
+.lf-ok{font-size:16px;line-height:1.5;padding:22px 18px}
+.lf-ok strong{display:block;font-size:18px;color:var(--ink);margin-bottom:4px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lf-fail{background:#3A1E16;color:#FFB9A3}
+  :root:not([data-theme="light"]) .lf-err{color:#FF9C7F}}
+
+/* 6. Процесс на главной — нумерованные шаги в системе карточек сайта. */
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:p}
+.process .step{flex-direction:column;gap:0}
+.process .n{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--tile);
+  color:var(--accent-ink);font-weight:600;font-size:15px;margin-bottom:18px}
+.process .when{font-size:13px;color:var(--faint);margin-top:12px}
+@media (max-width:900px){.process{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.process{grid-template-columns:1fr}}
+
+/* 7. «Где мы сильнее всего»: заголовок карточки стоял с отступом 24 px под
+ *    несуществующей иконкой — пустая полоса сверху каждой карточки. */
+.spot h3{margin-top:0}

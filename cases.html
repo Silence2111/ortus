@@ -299,6 +299,7 @@
   @media(max-width:600px){.cta-blk{margin:0 12px 40px;padding:64px 0;border-radius:28px}
     .hero,.s-hero{border-radius:0 0 28px 28px}}
 </style>
+<link rel="stylesheet" href="ui.css">
 </head>
 <body>
 <!-- NAV -->
@@ -312,7 +313,7 @@
 <span id="top"></span>
 
 <header class="s-hero">
-  <div class="wrap"><div class="crumbs rv"><a href="index.html">Главная</a><span>/</span>Кейсы</div>
+  <div class="wrap"><div class="crumbs rv"><a href="index.html">Главная</a><span>/</span>Работы</div>
     <div class="s-eyebrow rv"><span class="pip"></span> Кейсы</div>
     <h1 class="rv">Работы</h1><p class="lead rv">Свои продукты и клиентские проекты. Результаты клиентов в цифрах публикуем только с их согласия — поэтому здесь их пока нет.</p>
   </div></header>
@@ -378,7 +379,6 @@
   document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*45)+'ms';io.observe(el);});
   window.addEventListener('load',()=>{document.querySelectorAll('.s-hero .rv').forEach(el=>el.classList.add('in'));});
   (function(){var n=document.querySelector('nav');function s(){if(window.scrollY>10)n.classList.add('scrolled');else n.classList.remove('scrolled');}window.addEventListener('scroll',s,{passive:true});s();})();
-  (function(){var f=document.getElementById('leadForm');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();if(!f.name.value.trim()||!f.contact.value.trim()){(f.name.value.trim()?f.contact:f.name).focus();return;}f.classList.add('sent');var ok=document.getElementById('lfOk');if(ok)ok.classList.add('show');});})();
 </script>
 <script src="analytics.js" defer></script>
 </body>
