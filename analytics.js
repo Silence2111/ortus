@@ -37,7 +37,7 @@
 
   // Цель «заявка отправлена». Форма сама шлёт это событие после успешного
   // ответа Formspree — без него аналитика показывала бы визиты, но не заявки.
-  document.addEventListener('ortus:lead-sent', function () {
+  document.addEventListener('a3:lead-sent', function () {
     window.ym(METRIKA_ID, 'reachGoal', 'lead');
   });
 })();

@@ -84,7 +84,7 @@
           ok.setAttribute('tabindex', '-1');
           ok.focus();
         }
-        document.dispatchEvent(new CustomEvent('ortus:lead-sent'));
+        document.dispatchEvent(new CustomEvent('a3:lead-sent'));
       })
       .catch(function (err) {
         reset();

@@ -1,0 +1,29 @@
+<title>а3 — витрина</title>
+<style>
+  :root{--bar:#17181C;--ink:#F2F2EF;--muted:#9C9FA7;--accent:#6E72F0;--accent-2:#3FBEAE}
+  html,body{height:100%}
+  body{margin:0;background:var(--bar);display:flex;flex-direction:column;
+       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif}
+  .bar{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+       padding:9px 16px;color:var(--muted);font-size:13px;line-height:1.4}
+  .bar b{color:var(--ink);font-weight:500}
+  .bar .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+            background:linear-gradient(130deg,var(--accent),var(--accent-2))}
+  .bar a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(242,242,239,.28)}
+  .bar a:hover{border-color:var(--accent)}
+  .bar .sep{opacity:.35}
+  iframe{flex:1 1 auto;width:100%;border:0;background:#FCFCFA}
+  @media (max-width:640px){.bar .hide{display:none}}
+</style>
+<div class="bar">
+  <span class="dot"></span>
+  <b>а3</b> — стенд собранной витрины
+  <span class="sep">·</span>
+  <a href="site/index.html" target="site">Главная</a>
+  <a href="site/potok-izhs.html" target="site">Оффер ИЖС</a>
+  <a href="site/uslugi.html" target="site">Услуги</a>
+  <a href="site/cases.html" target="site">Работы</a>
+  <span class="sep hide">·</span>
+  <span class="hide">домен не подключён, в разметке заглушка demo.invalid</span>
+</div>
+<iframe name="site" src="site/index.html" title="Витрина агентства а3"></iframe>

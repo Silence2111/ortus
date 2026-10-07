@@ -1,14 +1,13 @@
 /* Общий слой поверх встроенных стилей страниц (подключается последним).
  * Здесь только то, что одинаково на всех 23 страницах и что аудит UX/UI
  * нашёл сломанным: контраст серого, цели нажатия, меню на телефоне,
- * фокус с клавиатуры, состояния формы. Палитра — та же, telescope. */
+ * фокус с клавиатуры, состояния формы. Палитра — прежняя: ирис #5A5FE0 → мята #37B6A6. */
 
-/* 1. Контраст. Было: --muted #807D78 = 3,9:1 и --faint #A8A39B = 2,4:1 на
- *    молочном фоне — ниже 4,5:1, серый текст на сером. Тот же тёплый тон, темнее. */
-:root{--muted:#6F6A64;--faint:#736E67}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--muted:#B3ABA2;--faint:#A39B92}}
-:root[data-theme="light"]{--muted:#6F6A64;--faint:#736E67}
-:root[data-theme="dark"]{--muted:#B3ABA2;--faint:#A39B92}
+/* 1. Контраст. Было: --faint #9A9DA4 = 2,9:1 на светлом фоне — ниже 4,5:1, серый текст на сером. Тот же тёплый тон, темнее. */
+:root{--muted:#6A6D75;--faint:#6E717A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--muted:#9C9FA7;--faint:#878A92}}
+:root[data-theme="light"]{--muted:#6A6D75;--faint:#6E717A}
+:root[data-theme="dark"]{--muted:#9C9FA7;--faint:#878A92}
 
 /* 2. Кнопки: цель нажатия не меньше 44 px, видимый фокус, disabled похож на disabled. */
 .btn{min-height:44px;padding:11px 20px;justify-content:center}
