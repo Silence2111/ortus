@@ -1,0 +1,60 @@
+# Публикация витрины на GitHub Pages.
+#
+# Зачем workflow, а не «Pages из ветки main». Pages раздал бы корень репозитория,
+# то есть ИСХОДНИКИ: шаблоны с {{SITE_ORIGIN}} и условными блоками. Раздавать
+# нужно dist/ — результат build.mjs. Именно из-за этого на silence2111.github.io
+# полгода висела версия до чистки: с canonical на ortus.ru, домен чужой компании.
+#
+# Адрес берётся из переменной репозитория SITE_ORIGIN
+# (Settings → Secrets and variables → Actions → Variables). Не задана —
+# сборка падает нарочно, чтобы витрина не уехала с враньём в разметке.
+
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Тесты витрины
+        run: npm test
+      - name: Сборка
+        env:
+          SITE_ORIGIN: ${{ vars.SITE_ORIGIN }}
+          SITE_EMAIL: ${{ vars.SITE_EMAIL }}
+          SITE_TELEGRAM: ${{ vars.SITE_TELEGRAM }}
+          SITE_WHATSAPP: ${{ vars.SITE_WHATSAPP }}
+          SITE_PHONE: ${{ vars.SITE_PHONE }}
+          SITE_LEGAL: ${{ vars.SITE_LEGAL }}
+          SITE_METRIKA_ID: ${{ vars.SITE_METRIKA_ID }}
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
