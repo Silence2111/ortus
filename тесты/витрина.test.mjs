@@ -195,3 +195,30 @@ describe('переопределение конфига', () => {
     assert.equal(cfg.origin, 'https://из-окружения.ru');
   });
 });
+
+describe('переключатель вариантов дизайна', () => {
+  // Он нужен только чтобы выбрать стиль, а на витрине для клиентов выглядел бы
+  // как недоделка. Поэтому по умолчанию выключен, и это проверяется.
+  const пусто = { origin: 'https://demo.invalid', email: '', telegram: '', whatsapp: '',
+                  phone: '', legal: '', metrikaId: '', skins: '' };
+
+  test('по умолчанию переключателя на странице нет', () => {
+    const вышло = render(читать('index.html'), buildVars(пусто), buildFlags(пусто));
+    assert.ok(!вышло.includes('skins.css'), 'skins.css не должен подключаться без флага');
+    assert.ok(!вышло.includes('skins.js'),  'skins.js не должен подключаться без флага');
+  });
+
+  test('с SITE_SKINS=1 переключатель подключается', () => {
+    const cfg = { ...пусто, skins: '1' };
+    const вышло = render(читать('index.html'), buildVars(cfg), buildFlags(cfg));
+    assert.ok(вышло.includes('skins.css'));
+    assert.ok(вышло.includes('skins.js'));
+  });
+
+  test('условные маркеры не остаются в готовой странице', () => {
+    for (const флаги of [пусто, { ...пусто, skins: '1' }]) {
+      const вышло = render(читать('index.html'), buildVars(флаги), buildFlags(флаги));
+      assert.deepEqual(auditOutput('index.html', вышло).filter(p => p.includes('маркеры')), []);
+    }
+  });
+});

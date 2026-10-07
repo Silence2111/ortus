@@ -53,6 +53,7 @@ export function readConfig(env = process.env, root = ROOT) {
     phone:     pick('SITE_PHONE', 'phone'),
     legal:     pick('SITE_LEGAL', 'legal'),
     metrikaId: pick('SITE_METRIKA_ID', 'metrikaId'),
+    skins:     pick('SITE_SKINS', 'skins'),
   };
 }
 
@@ -119,6 +120,9 @@ export function buildVars(cfg) {
 
 export function buildFlags(cfg) {
   const f = {
+    // Переключатель вариантов дизайна — только для показа себе: на витрине
+    // для клиентов его быть не должно, поэтому по умолчанию выключен.
+    skins: cfg.skins === '1' || cfg.skins === 'true',
     telegram: !!cfg.telegram,
     whatsapp: !!cfg.whatsapp,
     phone: !!cfg.phone,
