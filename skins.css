@@ -12,6 +12,9 @@
  *   aurora   — прежний: ирис → мята, светлый фон, пятна за героем, градиенты
  *   system   — личная дизайн-система: синий #225AEA, плоско, без градиентов
  *   dark     — палитра макета дизайн-версии/ortus-dark: чёрный, Montserrat, пурпур
+ *   studio   — тема studio из дизайн-системы: агентский чёрно-белый, пастель, свои эмодзи
+ *   hazard   — тема hazard: «Стройка», сигнальный жёлтый под оффер ИЖС
+ *   calm     — тема calm-case: «Спокойный», витрина результатов
  *   designpro— палитра макетов designpro-hero и ortus-designpro: чёрный, Inter,
  *              голубой #64CEFB. Эти два макета по цветам совпадают (второй —
  *              форк первого под а3), различаются контентом и видео-героем,
@@ -109,6 +112,134 @@
 :root[data-skin="designpro"] .step,:root[data-skin="designpro"] .faq details{
   border:1px solid var(--line);box-shadow:none}
 
+/* ── studio: тема studio из дизайн-системы (агентский стиль rondesignlab) ──
+   Чёрно-белый интерфейс, цвет приносят пастельные круги, контурная кнопка
+   заливается чёрным, без теней, крупные радиусы. Свои эмодзи в конце кнопок
+   и у сроков — как у референса; рисунки — дизайн/system/emoji (img/emo/). */
+:root[data-skin="studio"]{
+  --bg:#FAFAFA; --surface:#FFFFFF; --surface-2:#F0F0F0;
+  --dark:#000000; --dark-2:#111111;
+  --ink:#000000; --ink-2:#2B2B2B; --muted:#5F5F5F; --faint:#666666;
+  --line:rgba(0,0,0,.10); --line-soft:#F0F0F0;
+  --accent:#000000; --accent-2:#000000; --accent-3:#000000; --accent-ink:#000000;
+  --on-dark:#FAFAFA; --on-dark-muted:#A8A8A8;
+  --nav-bg:rgba(250,250,250,.84);
+  --tile:#D7EDA9;
+  --shadow:none; --shadow-lg:0 20px 60px rgba(0,0,0,.08); --glow:none;
+  --sq:30px; --plate:46px;
+  --au1:transparent; --au2:transparent; --au3:transparent;
+  --font:'Urbanist','Inter',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+:root[data-skin="studio"] body{font-family:var(--font);background:var(--bg);font-size:17px}
+:root[data-skin="studio"] h1,:root[data-skin="studio"] h2,
+:root[data-skin="studio"] h3,:root[data-skin="studio"] .brand{font-family:var(--font);font-weight:600;letter-spacing:-.035em}
+:root[data-skin="studio"] .aura{display:none}
+/* выделенные слова — жёлтая пилюля-маркер вместо градиента */
+:root[data-skin="studio"] .grad-txt{color:#000;background:#FFE99D;-webkit-background-clip:border-box;background-clip:border-box;
+  border-radius:999px;padding:0 .18em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+:root[data-skin="studio"] .btn{border-radius:999px}
+:root[data-skin="studio"] .btn:hover{box-shadow:none}
+:root[data-skin="studio"] .btn.accent{background:transparent;color:#000;box-shadow:inset 0 0 0 1px #000}
+:root[data-skin="studio"] .btn.accent:hover{background:#000;color:#fff;transform:none}
+:root[data-skin="studio"] .btn.ghost{background:#fff;color:#000;padding:14px 24px;opacity:1}
+:root[data-skin="studio"] .btn.ghost:hover{background:#000;color:#fff;opacity:1}
+:root[data-skin="studio"] .card,:root[data-skin="studio"] .tier,
+:root[data-skin="studio"] .step,:root[data-skin="studio"] .faq details{border:0;box-shadow:none}
+:root[data-skin="studio"] .card:hover{box-shadow:none}
+/* тонкая иконка в пастельном круге — главный приём референса с иконками */
+:root[data-skin="studio"] .ico{border-radius:50%;border:0;color:#000;background:var(--tile)}
+:root[data-skin="studio"] .ico svg{stroke-width:1.25}
+:root[data-skin="studio"] .card:nth-child(4n+2) .ico,:root[data-skin="studio"] .step:nth-child(4n+2) .ico{background:#FFE99D}
+:root[data-skin="studio"] .card:nth-child(4n+3) .ico,:root[data-skin="studio"] .step:nth-child(4n+3) .ico{background:#FFB39E}
+:root[data-skin="studio"] .card:nth-child(4n+4) .ico,:root[data-skin="studio"] .step:nth-child(4n+4) .ico{background:#CFE3FF}
+/* свои эмодзи: 👋 у «написать», 👉 у «смотреть работы», 🕔 у сроков */
+:root[data-skin="studio"] .nav-cta .btn::after,
+:root[data-skin="studio"] .lead-form .btn[type="submit"]::after,
+:root[data-skin="studio"] .hero-cta .btn.ghost::after{content:"";width:1.15em;height:1.15em;flex:none;
+  background:url(img/emo/wave.svg) center/contain no-repeat;transform-origin:70% 85%}
+:root[data-skin="studio"] .hero-cta .btn.ghost::after{background-image:url(img/emo/point-right.svg);transition:transform .3s ease}
+:root[data-skin="studio"] .hero-cta .btn.ghost svg{display:none}
+:root[data-skin="studio"] .hero-cta .btn.ghost:hover::after{transform:translateX(3px)}
+:root[data-skin="studio"] .nav-cta .btn:hover::after,
+:root[data-skin="studio"] .lead-form .btn[type="submit"]:hover::after{animation:skin-wave 1s ease-in-out}
+:root[data-skin="studio"] .when::before{content:"";display:inline-block;width:1.15em;height:1.15em;vertical-align:-.22em;margin-right:.35em;
+  background:url(img/emo/clock.svg) center/contain no-repeat}
+@keyframes skin-wave{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-8deg)}45%{transform:rotate(14deg)}60%{transform:rotate(-4deg)}75%{transform:rotate(9deg)}}
+@media (prefers-reduced-motion:reduce){:root[data-skin="studio"] .btn::after{animation:none!important;transition:none!important}}
+
+/* ── hazard: тема hazard из дизайн-системы — «Стройка» ─────────────────────
+   Сигнальный жёлтый на тёплом сером, чёрные плашки, жирный Archivo, малые
+   радиусы. Под оффер для подрядчиков ИЖС и всё строительное. */
+:root[data-skin="hazard"]{
+  --bg:#F4F4F1; --surface:#FFFFFF; --surface-2:#E9E9E4;
+  --dark:#0A0A0A; --dark-2:#141414;
+  --ink:#0A0A0A; --ink-2:#2B2B2B; --muted:#5E5E5E; --faint:#666661;
+  --line:#DEDED8; --line-soft:#E9E9E4;
+  --accent:#0A0A0A; --accent-2:#0A0A0A; --accent-3:#0A0A0A; --accent-ink:#0A0A0A;
+  --on-dark:#F4F4F1; --on-dark-muted:#BDBDBD;
+  --nav-bg:rgba(244,244,241,.88);
+  --tile:#FAE600;
+  --shadow:none; --shadow-lg:0 10px 28px rgba(0,0,0,.10); --glow:none;
+  --sq:10px; --plate:12px;
+  --au1:transparent; --au2:transparent; --au3:transparent;
+  --font:'Archivo','Inter',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+:root[data-skin="hazard"] body{font-family:var(--font);background:var(--bg)}
+:root[data-skin="hazard"] h1,:root[data-skin="hazard"] h2,
+:root[data-skin="hazard"] h3,:root[data-skin="hazard"] .brand{font-family:var(--font);letter-spacing:-.035em}
+:root[data-skin="hazard"] h1{font-weight:900}
+:root[data-skin="hazard"] h2{font-weight:800}
+:root[data-skin="hazard"] .aura{display:none}
+:root[data-skin="hazard"] .grad-txt{color:#0A0A0A;background:#FAE600;-webkit-background-clip:border-box;background-clip:border-box;
+  padding:0 .12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+:root[data-skin="hazard"] .btn{border-radius:6px;font-weight:700}
+:root[data-skin="hazard"] .btn:hover{box-shadow:none}
+:root[data-skin="hazard"] .btn.accent{background:#FAE600;color:#0A0A0A;box-shadow:inset 0 0 0 2px #0A0A0A}
+:root[data-skin="hazard"] .btn.accent:hover{background:#FFF066;transform:translateY(-1px)}
+:root[data-skin="hazard"] .btn.ghost{color:#0A0A0A}
+:root[data-skin="hazard"] .card,:root[data-skin="hazard"] .tier,
+:root[data-skin="hazard"] .step,:root[data-skin="hazard"] .faq details{border:1px solid var(--line);box-shadow:none}
+:root[data-skin="hazard"] .card:hover{box-shadow:var(--shadow-lg)}
+:root[data-skin="hazard"] .ico{border-radius:6px;border:0;background:#FAE600;color:#0A0A0A}
+:root[data-skin="hazard"] .ico svg{stroke-width:2}
+:root[data-skin="hazard"] .sec-head .kicker{background:#FAE600;color:#0A0A0A;padding:4px 8px;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+:root[data-skin="hazard"] .when{font-weight:700}
+
+/* ── calm: тема calm-case из дизайн-системы — «Спокойный» ──────────────────
+   Витрина результатов: белый фон, тёмно-синий текст, лёгкие веса, мягкие
+   кнопки-пилюли, крупные радиусы, тени заменены тонкой линией. */
+:root[data-skin="calm"]{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#FAFAFC;
+  --dark:#0E1844; --dark-2:#16214F;
+  --ink:#0E1844; --ink-2:#2A3159; --muted:#5F5E71; --faint:#64637A;
+  --line:rgba(0,0,0,.08); --line-soft:#EEF0F6;
+  --accent:#3853EA; --accent-2:#3853EA; --accent-3:#3853EA; --accent-ink:#2A43CC;
+  --on-dark:#FFFFFF; --on-dark-muted:#B9BFDA;
+  --nav-bg:rgba(255,255,255,.86);
+  --tile:#EBEEFD;
+  --shadow:0 0 0 1px rgba(0,0,0,.06); --shadow-lg:0 0 0 1px rgba(0,0,0,.08); --glow:none;
+  --sq:32px; --plate:32px;
+  --au1:transparent; --au2:transparent; --au3:transparent;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-display:'Manrope','Inter',-apple-system,sans-serif;
+}
+:root[data-skin="calm"] body{font-family:var(--font);background:var(--bg)}
+:root[data-skin="calm"] h1,:root[data-skin="calm"] h2,
+:root[data-skin="calm"] h3,:root[data-skin="calm"] .brand{font-family:var(--font-display);font-weight:500;letter-spacing:-.02em}
+:root[data-skin="calm"] b,:root[data-skin="calm"] strong{font-weight:500}
+:root[data-skin="calm"] .aura{display:none}
+:root[data-skin="calm"] .grad-txt{background:none;color:var(--accent);-webkit-text-fill-color:currentColor}
+:root[data-skin="calm"] .btn{font-weight:500}
+:root[data-skin="calm"] .btn:hover{box-shadow:none}
+:root[data-skin="calm"] .btn.accent{background:#3853EA;color:#fff;box-shadow:none}
+:root[data-skin="calm"] .btn.accent:hover{background:#2A43CC}
+:root[data-skin="calm"] .nav-cta .btn{background:#F0F0F0;color:#080E28}
+:root[data-skin="calm"] .card,:root[data-skin="calm"] .tier,
+:root[data-skin="calm"] .step,:root[data-skin="calm"] .faq details{border:0;box-shadow:var(--shadow)}
+:root[data-skin="calm"] .card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+:root[data-skin="calm"] .ico{border-radius:50%;border:0;background:var(--tile);color:var(--accent-ink)}
+:root[data-skin="calm"] .ico svg{stroke-width:1.5}
+
 /* ── виджет переключателя ──────────────────────────────────────────────── */
 .skin-switch{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;gap:4px;
   padding:4px;border-radius:999px;background:rgba(20,20,23,.9);
@@ -124,6 +255,9 @@
 .skin-switch .i-system{background:#225AEA}
 .skin-switch .i-dark{background:linear-gradient(130deg,#B600A8,#7721B1)}
 .skin-switch .i-designpro{background:#64CEFB}
+.skin-switch .i-studio{background:#D7EDA9;box-shadow:inset 0 0 0 1.5px #000}
+.skin-switch .i-hazard{background:#FAE600;box-shadow:inset 0 0 0 1.5px #0A0A0A}
+.skin-switch .i-calm{background:#3853EA}
 @media print{.skin-switch{display:none}}
 @media (max-width:520px){.skin-switch{right:10px;bottom:10px}
   .skin-switch button{padding:8px 10px}

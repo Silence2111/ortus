@@ -6,7 +6,11 @@
     { id: 'aurora',    имя: 'Aurora'    },
     { id: 'system',    имя: 'Системный' },
     { id: 'dark',      имя: 'Тёмный',    шрифт: 'Montserrat:wght@400;500;600;700' },
-    { id: 'designpro', имя: 'DesignPro', шрифт: 'Inter:wght@400;500;600;700' }
+    { id: 'designpro', имя: 'DesignPro', шрифт: 'Inter:wght@400;500;600;700' },
+    // из дизайн-системы (дизайн/system/themes): агентский, стройка, витрина результатов
+    { id: 'studio',    имя: 'Студия',    шрифт: 'Urbanist:wght@400;500;600;700' },
+    { id: 'hazard',    имя: 'Стройка',   шрифт: 'Archivo:wght@400;500;600;700;800;900' },
+    { id: 'calm',      имя: 'Спокойный', шрифт: 'Manrope:wght@400;500;600&family=Inter:wght@400;500' }
   ];
   var КЛЮЧ = 'a3-skin';
 
