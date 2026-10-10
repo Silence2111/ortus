@@ -232,5 +232,59 @@
   "500",
   "normal",
   "latin-ext"
+ ],
+ "unbounded-cyrillic-500-normal.woff2": [
+  "unbounded",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "unbounded-latin-500-normal.woff2": [
+  "unbounded",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "unbounded-latin-ext-500-normal.woff2": [
+  "unbounded",
+  "500",
+  "normal",
+  "latin-ext"
+ ],
+ "unbounded-cyrillic-700-normal.woff2": [
+  "unbounded",
+  "700",
+  "normal",
+  "cyrillic"
+ ],
+ "unbounded-latin-700-normal.woff2": [
+  "unbounded",
+  "700",
+  "normal",
+  "latin"
+ ],
+ "unbounded-latin-ext-700-normal.woff2": [
+  "unbounded",
+  "700",
+  "normal",
+  "latin-ext"
+ ],
+ "unbounded-cyrillic-900-normal.woff2": [
+  "unbounded",
+  "900",
+  "normal",
+  "cyrillic"
+ ],
+ "unbounded-latin-900-normal.woff2": [
+  "unbounded",
+  "900",
+  "normal",
+  "latin"
+ ],
+ "unbounded-latin-ext-900-normal.woff2": [
+  "unbounded",
+  "900",
+  "normal",
+  "latin-ext"
  ]
 }
