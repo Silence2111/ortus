@@ -422,7 +422,7 @@ ${s.body}
 
 /* Пилюля, в которой иконки сменяют друг друга: «сайт, реклама, ИИ, 1С —
  * всё в одном». [[cycle:sun:laptop,cart,sparkles,database]] */
-const cyclePill = (tint, list) => `<span class="st-pill st-pill--cycle st-glow--${tint}" aria-hidden="true">${list.split(',')
+const cyclePill = (tint, list) => `<span class="st-pill st-pill--cycle ${tint === 'silver' ? 'st-chrome' : 'st-glow--' + tint}" aria-hidden="true">${list.split(',')
   .map((n, i) => icon(n.trim(), i === 0 ? 'is-on' : '')).join('')}</span>`;
 
 /* Окно продукта: <!--ST:win файл|подпись в адресной строке|alt--> */
