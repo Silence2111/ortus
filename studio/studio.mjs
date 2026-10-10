@@ -95,8 +95,9 @@ const PAGE_ICON = {
   'blog-cena-sajta.html': 'percent', 'blog-ii-chat-bot.html': 'sparkles', 'blog-wb-kartochka.html': 'cart',
 };
 
-/* Пастельные подложки пилюль — по кругу, чтобы соседние страницы различались */
-const TINTS = ['sun', 'lime', 'sky', 'peach', 'lilac'];
+/* Пары свечения (st-glow--*) — по кругу, чтобы соседние плиты и страницы
+ * различались. Цвет живёт только в свечении, не в заливке. */
+const TINTS = ['blue', 'violet', 'peach', 'mint', 'rose', 'sky'];
 const tintOf = (file) => TINTS[[...file].reduce((a, c) => a + c.charCodeAt(0), 0) % TINTS.length];
 
 /* ── блоки, которые повторяются на ручных страницах ───────────────────────── */
@@ -106,9 +107,9 @@ const arrow = (dir = 'right') => icon('arrow-' + dir, 'st-i--arrow');
 function servicesCarousel() {
   return SERVICES.map((s, i) => `
       <article class="st-svc" data-reveal>
-        <a class="st-svc__plate st-tint--${TINTS[i % TINTS.length]}" href="${s.file}">
+        <a class="st-svc__plate st-glow st-glow--${TINTS[i % TINTS.length]}" href="${s.file}">
           <span class="st-svc__tags">${s.tags.map((t) => `<span>${t}</span>`).join('')}</span>
-          <span class="st-svc__ico">${icon(s.icon)}</span>
+          <span class="st-svc__ico st-glass">${icon(s.icon)}</span>
           <span class="st-svc__name">${s.name}</span>
           <span class="st-svc__go" aria-hidden="true">${arrow()}</span>
         </a>
@@ -304,7 +305,7 @@ ${presence(hasCta)}
 /* ── преобразование исходной страницы ─────────────────────────────────────── */
 
 const pill = (name, tint, cls = '') =>
-  `<span class="st-pill st-tint--${tint}${cls ? ' ' + cls : ''}" aria-hidden="true">${icon(name)}</span>`;
+  `<span class="st-pill st-glow--${tint}${cls ? ' ' + cls : ''}" aria-hidden="true">${icon(name)}</span>`;
 
 /* Пилюля встаёт после первого слова: «Разработка [·] сайтов, которые…».
  * Если в заголовке меньше трёх слов — в конце, чтобы не разрывать пару слов. */
@@ -377,7 +378,7 @@ function transformPage(file, base) {
     : `<a class="st-btn st-btn--white st-btn--lg" href="${c.href}">${c.label} ${arrow(c.href.startsWith('#') ? 'down' : 'right')}</a>`).join('');
   const stickers = d.metrics.length ? `
       <div class="st-stickers" data-reveal-stagger>${d.metrics.map((m, i) =>
-        `<div class="st-sticker st-tint--${TINTS[(TINTS.indexOf(tint) + i + 1) % TINTS.length]}"><b>${strip(m.v)}</b><span>${m.k}</span></div>`).join('')}</div>` : '';
+        `<div class="st-sticker st-glow st-glow--${TINTS[(TINTS.indexOf(tint) + i + 1) % TINTS.length]}"><b>${strip(m.v)}</b><span>${m.k}</span></div>`).join('')}</div>` : '';
 
   let main = `
 <section class="st-hero st-hero--inner${isArticle || isLegal ? ' st-hero--read' : ''}">
@@ -409,7 +410,7 @@ ${s.body}
 
   const hasCta = !isLegal;
   const final = hasCta ? finalBlock({
-    title: d.cta?.h2 ? withPill(d.cta.h2.replace(/\.$/, ''), pill('chat', 'sun')) : `Давайте ${pill('chat', 'sun')} обсудим`,
+    title: d.cta?.h2 ? withPill(d.cta.h2.replace(/\.$/, ''), pill('chat', 'peach')) : `Давайте ${pill('chat', 'peach')} обсудим`,
     lead: d.cta?.p || 'Разберём задачу <b>бесплатно</b> и предложим решение <b>с цифрами и сроками</b> — в течение дня.',
     fields: d.cta?.fields || GENERIC_FIELDS,
     subject: d.cta?.subject || `Заявка с сайта а3 — ${strip(d.h1)}`,
@@ -421,8 +422,11 @@ ${s.body}
 
 /* Пилюля, в которой иконки сменяют друг друга: «сайт, реклама, ИИ, 1С —
  * всё в одном». [[cycle:sun:laptop,cart,sparkles,database]] */
-const cyclePill = (tint, list) => `<span class="st-pill st-pill--cycle st-tint--${tint}" aria-hidden="true">${list.split(',')
+const cyclePill = (tint, list) => `<span class="st-pill st-pill--cycle st-glow--${tint}" aria-hidden="true">${list.split(',')
   .map((n, i) => icon(n.trim(), i === 0 ? 'is-on' : '')).join('')}</span>`;
+
+/* Окно продукта: <!--ST:win файл|подпись в адресной строке|alt--> */
+export const win = (img, name, alt, lazy = true) => `<div class="st-win"><div class="st-win__bar" aria-hidden="true"><i></i><i></i><i></i><span>${name}</span></div><img src="../img/${img}.jpg" width="1200" height="806" decoding="async"${lazy ? ' loading="lazy"' : ''} alt="${alt}"></div>`;
 
 function svcCards(list) {
   return list.split(',').map((f) => SVC[f.trim()]).map((s) => {
@@ -441,13 +445,15 @@ function svcCards(list) {
  *   [[cycle:подложка:a,b]] — пилюля, где иконки сменяют друг друга
  *   [[иконка:подложка]]   — пилюля с иконкой на пастели
  *   <!--ST:bubble-->…<!--/ST:bubble--> — реплика между разделами
- *   <!--ST:svc:a.html,b.html--> — карточки выбранных услуг */
+ *   <!--ST:svc:a.html,b.html--> — карточки выбранных услуг
+ *   <!--ST:win файл|подпись|alt--> — работа в окне браузера */
 function expandHand(html) {
   return html
     .replace(/\[\[cycle:([a-z]+):([a-z,-]+)\]\]/g, (_m, t, l) => cyclePill(t, l))
     .replace(/\[\[([a-z-]+):([a-z]+)\]\]/g, (_m, n, t) => pill(n, t))
     .replace(/<!--ST:bubble-->([\s\S]*?)<!--\/ST:bubble-->/g, (_m, t) => bubble(t.trim()))
-    .replace(/<!--ST:svc:([^>]*?)-->/g, (_m, l) => svcCards(l));
+    .replace(/<!--ST:svc:([^>]*?)-->/g, (_m, l) => svcCards(l))
+    .replace(/<!--ST:win ([^|]+)\|([^|]+)\|([^>]*?)(\|eager)?-->/g, (_m, f, n, a, e) => win(f.trim(), n.trim(), a.trim(), !e));
 }
 
 function handPage(file, fragment, baseIndex) {

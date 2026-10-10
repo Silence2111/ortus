@@ -64,7 +64,7 @@
   function showcase() {
     var box = document.querySelector('.st-show');
     if (!box) return;
-    var imgs = $$('.st-show__img', box), btns = $$('.st-show__bar button', box);
+    var imgs = $$('.st-show__slide', box), btns = $$('.st-show__bar button', box);
     var cap = box.querySelector('.st-show__cap');
     var i = 0, timer = null, visible = true, hover = false;
     var DUR = 5000;
@@ -129,6 +129,15 @@
       window.addEventListener('resize', sync);
       sync();
     });
+  }
+
+  /* 4б. Шапка: под плитками проявляется растушёвка, когда страница прокручена,
+   *     чтобы текст не просвечивал сквозь полупрозрачные плитки */
+  function navShade() {
+    var n = document.querySelector('.st-nav');
+    if (!n) return;
+    function s() { n.classList.toggle('is-scrolled', window.scrollY > 24); }
+    window.addEventListener('scroll', s, { passive: true }); s();
   }
 
   /* 5. Меню на телефоне */
@@ -229,6 +238,6 @@
     });
   }
 
-  function init() { reveal(); bubbles(); showcase(); cycle(); rails(); menu(); presence(); segments(); lightbox(); counts(); marquee(); }
+  function init() { reveal(); bubbles(); showcase(); cycle(); navShade(); rails(); menu(); presence(); segments(); lightbox(); counts(); marquee(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
