@@ -328,7 +328,7 @@ a { color: inherit; }
 .foot__legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 28px; color: var(--muted); font-size: 14px; }
 
 /* ---------- внутренняя страница ---------- */
-.crumbs { display: flex; gap: 10px; color: var(--muted); font-size: 15px; margin-bottom: 32px; flex-wrap: wrap; }
+.crumbs { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 15px; margin-bottom: 32px; flex-wrap: wrap; }
 .crumbs a { color: var(--muted); text-decoration: none; padding: 10px 0; }
 .crumbs a:hover { color: #fff; }
 .phero { padding: clamp(48px, 7vw, 96px) 0 clamp(56px, 7vw, 88px); }

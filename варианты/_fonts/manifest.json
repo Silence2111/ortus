@@ -1,0 +1,110 @@
+{
+ "manrope-cyrillic-400-normal.woff2": [
+  "manrope",
+  "400",
+  "normal",
+  "cyrillic"
+ ],
+ "manrope-latin-400-normal.woff2": [
+  "manrope",
+  "400",
+  "normal",
+  "latin"
+ ],
+ "manrope-latin-ext-400-normal.woff2": [
+  "manrope",
+  "400",
+  "normal",
+  "latin-ext"
+ ],
+ "manrope-cyrillic-500-normal.woff2": [
+  "manrope",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "manrope-latin-500-normal.woff2": [
+  "manrope",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "manrope-latin-ext-500-normal.woff2": [
+  "manrope",
+  "500",
+  "normal",
+  "latin-ext"
+ ],
+ "manrope-cyrillic-600-normal.woff2": [
+  "manrope",
+  "600",
+  "normal",
+  "cyrillic"
+ ],
+ "manrope-latin-600-normal.woff2": [
+  "manrope",
+  "600",
+  "normal",
+  "latin"
+ ],
+ "manrope-latin-ext-600-normal.woff2": [
+  "manrope",
+  "600",
+  "normal",
+  "latin-ext"
+ ],
+ "golos-text-cyrillic-400-normal.woff2": [
+  "golos-text",
+  "400",
+  "normal",
+  "cyrillic"
+ ],
+ "golos-text-latin-400-normal.woff2": [
+  "golos-text",
+  "400",
+  "normal",
+  "latin"
+ ],
+ "golos-text-latin-ext-400-normal.woff2": [
+  "golos-text",
+  "400",
+  "normal",
+  "latin-ext"
+ ],
+ "golos-text-cyrillic-500-normal.woff2": [
+  "golos-text",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "golos-text-latin-500-normal.woff2": [
+  "golos-text",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "golos-text-latin-ext-500-normal.woff2": [
+  "golos-text",
+  "500",
+  "normal",
+  "latin-ext"
+ ],
+ "golos-text-cyrillic-600-normal.woff2": [
+  "golos-text",
+  "600",
+  "normal",
+  "cyrillic"
+ ],
+ "golos-text-latin-600-normal.woff2": [
+  "golos-text",
+  "600",
+  "normal",
+  "latin"
+ ],
+ "golos-text-latin-ext-600-normal.woff2": [
+  "golos-text",
+  "600",
+  "normal",
+  "latin-ext"
+ ]
+}
