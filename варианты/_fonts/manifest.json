@@ -106,5 +106,77 @@
   "600",
   "normal",
   "latin-ext"
+ ],
+ "inter-cyrillic-400-normal.woff2": [
+  "inter",
+  "400",
+  "normal",
+  "cyrillic"
+ ],
+ "inter-latin-400-normal.woff2": [
+  "inter",
+  "400",
+  "normal",
+  "latin"
+ ],
+ "inter-latin-ext-400-normal.woff2": [
+  "inter",
+  "400",
+  "normal",
+  "latin-ext"
+ ],
+ "inter-cyrillic-500-normal.woff2": [
+  "inter",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "inter-latin-500-normal.woff2": [
+  "inter",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "inter-latin-ext-500-normal.woff2": [
+  "inter",
+  "500",
+  "normal",
+  "latin-ext"
+ ],
+ "jetbrains-mono-cyrillic-400-normal.woff2": [
+  "jetbrains-mono",
+  "400",
+  "normal",
+  "cyrillic"
+ ],
+ "jetbrains-mono-latin-400-normal.woff2": [
+  "jetbrains-mono",
+  "400",
+  "normal",
+  "latin"
+ ],
+ "jetbrains-mono-latin-ext-400-normal.woff2": [
+  "jetbrains-mono",
+  "400",
+  "normal",
+  "latin-ext"
+ ],
+ "jetbrains-mono-cyrillic-500-normal.woff2": [
+  "jetbrains-mono",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "jetbrains-mono-latin-500-normal.woff2": [
+  "jetbrains-mono",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "jetbrains-mono-latin-ext-500-normal.woff2": [
+  "jetbrains-mono",
+  "500",
+  "normal",
+  "latin-ext"
  ]
 }
