@@ -33,7 +33,8 @@ const DIST = process.env.SITE_DIST || join(ROOT, 'dist');
  * robots.txt закрыты; остальное — сама сборка и её тесты. studio — исходники
  * варианта «Студия», он собирается отдельно и только вместе с переключателем. */
 const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', '.DS_Store',
-                      'build.mjs', 'site.config.json', 'README.md', '.gitignore']);
+                      'build.mjs', 'site.config.json', 'README.md', '.gitignore',
+                      'package.json', '.github']);
 
 /* Подстановка идёт только в текст. Картинки копируются байт в байт. */
 const TEXT = new Set(['.html', '.xml', '.txt', '.js', '.css', '.json', '.webmanifest', '.svg']);
