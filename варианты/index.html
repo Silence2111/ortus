@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Foksten в пяти вариантах</title>
+<link rel="stylesheet" href="_fonts/fonts.css">
+<style>
+/* Стенд: нейтральная рамка в каноне дизайн-системы («Спокойный минимализм»),
+   чтобы не спорить с вариантами. Слева превью, справа — чем вариант отличается. */
+:root {
+  --bg: #F4F5F7; --surface: #FFFFFF; --ink: #0E1116; --ink-2: #3A3D45; --muted: #5F636D;
+  --line: #E4E5EC; --accent: #225AEA; --accent-ink: #FFFFFF; --tint: #EAF0FF;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Jetbrains Mono", ui-monospace, Menlo, monospace;
+  --shadow: 0 1px 2px rgba(14, 17, 22, .04), 0 12px 32px -18px rgba(14, 17, 22, .22);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0E1116; --surface: #171A21; --ink: #F2F3F6; --ink-2: #C9CCD4; --muted: #9A9EA9; --line: #262A33; --accent: #6E95FF; --accent-ink: #0E1116; --tint: #1B2440; --shadow: 0 0 0 1px #262A33; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0E1116; --surface: #171A21; --ink: #F2F3F6; --ink-2: #C9CCD4; --muted: #9A9EA9; --line: #262A33; --accent: #6E95FF; --accent-ink: #0E1116; --tint: #1B2440; --shadow: 0 0 0 1px #262A33; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; padding: 0 16px; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.page { max-width: 1180px; margin: 0 auto; padding-block: clamp(40px, 7vw, 88px) 72px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 14px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: 1.05; letter-spacing: -.035em; font-weight: 700; text-wrap: balance; max-width: 18ch; }
+.intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+@media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+.intro p { margin: 0; color: var(--ink-2); font-size: 17px; max-width: 58ch; }
+.how { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+.how span { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface); box-shadow: var(--shadow); font-size: 14px; color: var(--ink-2); }
+.how b { font: 500 12px var(--mono); color: var(--accent); white-space: nowrap; }
+.list { margin-top: clamp(40px, 6vw, 72px); display: grid; gap: 20px; }
+.v { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: center; background: var(--surface); border-radius: 24px; padding: clamp(16px, 2.4vw, 28px); box-shadow: var(--shadow); }
+@media (max-width: 860px) { .v { grid-template-columns: 1fr; } }
+.shots { position: relative; padding-right: 64px; padding-bottom: 28px; }
+.shots a { display: block; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px var(--line); transition: transform .3s cubic-bezier(.16, 1, .3, 1); }
+.shots a:hover { transform: translateY(-3px); }
+.shots .desk img { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+.shots .phone { position: absolute; right: 0; bottom: 0; width: 26%; max-width: 132px; border-radius: 16px; box-shadow: 0 0 0 4px var(--surface), 0 14px 30px -12px rgba(14, 17, 22, .4); }
+.shots .phone img { aspect-ratio: 300 / 570; width: 100%; object-fit: cover; object-position: top; }
+.v__n { font: 500 13px var(--mono); color: var(--muted); }
+.v h2 { margin: 6px 0 4px; font-size: clamp(26px, 3vw, 34px); letter-spacing: -.03em; line-height: 1.1; }
+.v__ref { font-size: 14px; color: var(--muted); }
+.v__ref b { color: var(--ink-2); font-weight: 500; }
+.v p { margin: 14px 0 0; color: var(--ink-2); }
+.v ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2); }
+.v li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.v li::before { content: ""; width: 6px; height: 6px; margin: 9px 0 0 4px; border-radius: 50%; background: var(--accent); }
+.meta { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 13px; color: var(--muted); }
+.sw { display: flex; }
+.sw i { width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--line); margin-left: -5px; }
+.sw i:first-child { margin-left: 0; }
+.go { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; transition: background .3s, color .3s; }
+.btn--main { background: var(--accent); color: var(--accent-ink); }
+.btn--main:hover { filter: brightness(.94); }
+.btn--soft { background: var(--tint); color: var(--accent); }
+.btn--soft:hover { background: var(--accent); color: var(--accent-ink); }
+.foot { margin-top: clamp(48px, 6vw, 72px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .foot { grid-template-columns: 1fr; } }
+.foot div { border-top: 1px solid var(--line); padding-top: 16px; }
+.foot h3 { margin: 0 0 6px; font-size: 15px; }
+.foot p { margin: 0; font-size: 14px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .shots a { transition: none; } }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="intro">
+    <div>
+      <span class="eyebrow">Foksten · дизайн-стенд · 10.10.2026</span>
+      <h1>Пять сайтов агентства с нуля</h1>
+    </div>
+    <p>Один и тот же Foksten: те же тексты, цены и работы. Разные характер, сетка и механика. Всё собрано на обновлённой дизайн-системе: её токены, механика оживления и иконки, у каждого варианта — своя тема и свой референс из библиотеки.</p>
+  </div>
+  <div class="how">
+    <span><b>2</b>страницы в каждом: главная и «Реклама на WB и Ozon»</span>
+    <span><b>← →</b>в левом нижнем углу листают варианты на той же странице</span>
+    <span><b>0</b>заявок уходит: формы на стенде проверяют поля, но не отправляют</span>
+  </div>
+
+  <div class="list">
+    <article class="v">
+      <div class="shots"><a class="desk" href="1-noch/index.html"><img src="img/thumb-1.jpg" alt="Первый экран варианта «Ночь»: белый заголовок на чёрном и поле задачи" width="960" height="600"></a><a class="phone" href="1-noch/index.html" tabindex="-1" aria-hidden="true"><img src="img/thumb-1-m.jpg" alt="" width="300" height="570"></a></div>
+      <div>
+        <span class="v__n">01</span>
+        <h2>Ночь</h2>
+        <span class="v__ref">по референсу <b>WUNA</b></span>
+        <p>Чёрное полотно, один белый, огромные заголовки. Дорого и строго, цвета почти нет.</p>
+        <ul>
+          <li>Поле «расскажите задачу» на первом экране сразу подсказывает нужные направления и нижнюю цену</li>
+          <li>Работы — в окнах браузера на тёмных плитах</li>
+          <li>Цвет один раз на всю страницу: синее свечение под формой</li>
+        </ul>
+        <div class="meta"><span class="sw" aria-hidden="true"><i style="background:#020202"></i><i style="background:#1a1a1a"></i><i style="background:#ffffff"></i><i style="background:#225AEA"></i></span><span>Manrope</span></div>
+        <div class="go"><a class="btn btn--main" href="1-noch/index.html">Открыть главную</a><a class="btn btn--soft" href="1-noch/marketplace.html">Страница услуги</a></div>
+      </div>
+    </article>
+
+    <article class="v">
+      <div class="shots"><a class="desk" href="2-vozduh/index.html"><img src="img/thumb-2.jpg" alt="Первый экран варианта «Воздух»: заголовок слева и смета справа" width="960" height="600"></a><a class="phone" href="2-vozduh/index.html" tabindex="-1" aria-hidden="true"><img src="img/thumb-2-m.jpg" alt="" width="300" height="570"></a></div>
+      <div>
+        <span class="v__n">02</span>
+        <h2>Воздух</h2>
+        <span class="v__ref">по референсам <b>BlancVPN</b> и <b>Rollypay</b></span>
+        <p>Светлый холодный продукт: бледно-голубой фон, белые карточки без рамок, одна мягкая тень, синий акцент.</p>
+        <ul>
+          <li>Смета на первом экране: отмечаете направления — видите «разово от» и «в месяц от»</li>
+          <li>«Кто вы?» — пять типов бизнеса, у каждого свой первый шаг и цены</li>
+          <li>Сравнение «мы / пять подрядчиков / свой штат» с поднятой своей колонкой</li>
+        </ul>
+        <div class="meta"><span class="sw" aria-hidden="true"><i style="background:#f3f8ff"></i><i style="background:#ffffff"></i><i style="background:#151e30"></i><i style="background:#225AEA"></i><i style="background:#0b1122"></i></span><span>Golos Text</span></div>
+        <div class="go"><a class="btn btn--main" href="2-vozduh/index.html">Открыть главную</a><a class="btn btn--soft" href="2-vozduh/marketplace.html">Страница услуги</a></div>
+      </div>
+    </article>
+
+    <article class="v">
+      <div class="shots"><a class="desk" href="3-redakciya/index.html"><img src="img/thumb-3.jpg" alt="Первый экран варианта «Редакция»: колонтитул, знак F и оглавление" width="960" height="600"></a><a class="phone" href="3-redakciya/index.html" tabindex="-1" aria-hidden="true"><img src="img/thumb-3-m.jpg" alt="" width="300" height="570"></a></div>
+      <div>
+        <span class="v__n">03</span>
+        <h2>Редакция</h2>
+        <span class="v__ref">по референсам <b>Корчагин</b> и <b>Jarcos</b></span>
+        <p>Белая страница, тёмно-синий текст, заголовки не крупнее 32 px. Продаёт содержание, а не кегль.</p>
+        <ul>
+          <li>Кейсы через результат с числом: «свели три площадки в одну сводку», чипы-метрики, история по шагам</li>
+          <li>Шапка — газетный колонтитул с живым временем по Москве, прайс — как оглавление</li>
+          <li>В букве «о» подвала — диаграмма структуры выручки из а3статс</li>
+        </ul>
+        <div class="meta"><span class="sw" aria-hidden="true"><i style="background:#ffffff"></i><i style="background:#EEF0F6"></i><i style="background:#0E1844"></i><i style="background:#3853EA"></i></span><span>Inter · JetBrains Mono</span></div>
+        <div class="go"><a class="btn btn--main" href="3-redakciya/index.html">Открыть главную</a><a class="btn btn--soft" href="3-redakciya/marketplace.html">Страница услуги</a></div>
+      </div>
+    </article>
+
+    <article class="v">
+      <div class="shots"><a class="desk" href="4-steklo/index.html"><img src="img/thumb-4.jpg" alt="Первый экран варианта «Стекло»: заголовок и бенто-панель из стеклянных плиток" width="960" height="600"></a><a class="phone" href="4-steklo/index.html" tabindex="-1" aria-hidden="true"><img src="img/thumb-4-m.jpg" alt="" width="300" height="570"></a></div>
+      <div>
+        <span class="v__n">04</span>
+        <h2>Стекло</h2>
+        <span class="v__ref">по референсу <b>rondesignlab-glass</b> — то, что понравилось в «Студии»</span>
+        <p>Матовое стекло на мягком градиенте с зерном. Цвет — свечением под стеклом, не больше трёх плиток на экран.</p>
+        <ul>
+          <li>Первый экран — бенто-панель агентства: переписка с ведущим, смета за день, оплата по этапам</li>
+          <li>«Кто вы?» подсвечивает ваши направления среди двенадцати</li>
+          <li>Работы — карусель окон на подсветке в цвет проекта, этапы — стопкой при прокрутке</li>
+        </ul>
+        <div class="meta"><span class="sw" aria-hidden="true"><i style="background:#EEF1F7"></i><i style="background:#8FAEFF"></i><i style="background:#9EDDBB"></i><i style="background:#FFB894"></i><i style="background:#12151C"></i></span><span>Onest</span></div>
+        <div class="go"><a class="btn btn--main" href="4-steklo/index.html">Открыть главную</a><a class="btn btn--soft" href="4-steklo/marketplace.html">Страница услуги</a></div>
+      </div>
+    </article>
+
+    <article class="v">
+      <div class="shots"><a class="desk" href="5-plakat/index.html"><img src="img/thumb-5.jpg" alt="Первый экран варианта «Плакат»: слово foksten во всю ширину и чёрная плита с цифрами" width="960" height="600"></a><a class="phone" href="5-plakat/index.html" tabindex="-1" aria-hidden="true"><img src="img/thumb-5-m.jpg" alt="" width="300" height="570"></a></div>
+      <div>
+        <span class="v__n">05</span>
+        <h2>Плакат</h2>
+        <span class="v__ref">по референсам <b>Offsuit</b> и теме «Плакат»</span>
+        <p>Бумажный фон, чёрные плиты, огромный шрифт. Одна громкая мысль на экран, неоновый мятный только на чёрном.</p>
+        <ul>
+          <li>Имя «foksten» во всю ширину вместо картинки</li>
+          <li>Каждое направление — тёмная плита с одним крупным знаком</li>
+          <li>Прайс набран как афиша: название слева, цена справа</li>
+        </ul>
+        <div class="meta"><span class="sw" aria-hidden="true"><i style="background:#F2F0EB"></i><i style="background:#0B0B0C"></i><i style="background:#0AFA96"></i></span><span>Unbounded · Inter</span></div>
+        <div class="go"><a class="btn btn--main" href="5-plakat/index.html">Открыть главную</a><a class="btn btn--soft" href="5-plakat/marketplace.html">Страница услуги</a></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="foot">
+    <div><h3>Одинаково во всех</h3><p>Тексты, нижние цены 12 направлений и работы взяты с нынешнего сайта. Выдуманных цифр и отзывов нет.</p></div>
+    <div><h3>Проверено</h3><p>10 страниц на ширине 1440 и 390: без ошибок, без прокрутки вбок, кнопки от 44 px, формы показывают ошибку у поля.</p></div>
+    <div><h3>После выбора</h3><p>Выбранный вариант собираем на все 24 страницы сайта вместо «Студии» и выкатываем на foksten.ru.</p></div>
+  </div>
+</main>
+</body>
+</html>
