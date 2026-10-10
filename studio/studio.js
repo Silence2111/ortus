@@ -59,43 +59,6 @@
     list.forEach(function (b) { io.observe(b); });
   }
 
-  /* 3. Витрина работ: кадры сменяют друг друга, полоски сверху — как в сторис.
-   */
-  function showcase() {
-    var box = document.querySelector('.st-show');
-    if (!box) return;
-    var imgs = $$('.st-show__slide', box), btns = $$('.st-show__bar button', box);
-    var cap = box.querySelector('.st-show__cap');
-    var i = 0, timer = null, visible = true, hover = false;
-    var DUR = 5000;
-    box.style.setProperty('--show-dur', DUR + 'ms');
-    function go(n, user) {
-      i = (n + imgs.length) % imgs.length;
-      imgs.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
-      btns.forEach(function (b, k) {
-        b.classList.toggle('is-done', k < i);
-        b.classList.remove('is-on'); void b.offsetWidth;
-        if (k === i) b.classList.add('is-on');
-        b.setAttribute('aria-current', String(k === i));
-      });
-      var im = imgs[i];
-      if (cap) {
-        cap.href = im.dataset.href || cap.href;
-        cap.querySelector('.st-show__t').textContent = im.dataset.title || '';
-        cap.querySelector('.st-show__s').textContent = im.dataset.sub || '';
-      }
-      if (user) restart();
-    }
-    function tick() { if (visible && !hover && !document.hidden) go(i + 1); }
-    function restart() { clearInterval(timer); if (!reduce) timer = setInterval(tick, DUR); }
-    btns.forEach(function (b, k) { b.addEventListener('click', function () { go(k, true); }); });
-    box.addEventListener('mouseenter', function () { hover = true; box.classList.add('is-paused'); });
-    box.addEventListener('mouseleave', function () { hover = false; box.classList.remove('is-paused'); restart(); });
-    if (hasIO) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0.2 }).observe(box);
-    go(0); restart();
-    if (reduce) btns.forEach(function (b) { b.classList.remove('is-on'); });
-  }
-
   /* 3б. Пилюля с иконками в заголовке: сайт → реклама → ИИ → 1С → поиск */
   function cycle() {
     if (reduce) return;
@@ -238,6 +201,6 @@
     });
   }
 
-  function init() { reveal(); bubbles(); showcase(); cycle(); navShade(); rails(); menu(); presence(); segments(); lightbox(); counts(); marquee(); }
+  function init() { reveal(); bubbles(); cycle(); navShade(); rails(); menu(); presence(); segments(); lightbox(); counts(); marquee(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
