@@ -130,7 +130,7 @@ lerti (201.34.159.41, Timeweb Новосибирск), nginx + Let's Encrypt.
 
 ```
 деплой/выкатить.sh            # тесты → сборка из git archive HEAD → выпуск
-деплой/выкатить.sh --nginx    # то же + конфиг nginx (деплой/a3.nginx.conf)
+деплой/выкатить.sh --nginx    # то же + конфиг nginx (деплой/foksten.nginx.conf)
 деплой/выкатить.sh --откат    # вернуть предыдущий выпуск
 ```
 
@@ -154,7 +154,7 @@ lerti (201.34.159.41, Timeweb Новосибирск), nginx + Let's Encrypt.
 ### Когда купят домен
 
 Вписать его в `site.config.json` → `origin`, добавить имя в `server_name`
-(`деплой/a3.nginx.conf`), выпустить сертификат на оба имени и
+(`деплой/foksten.nginx.conf`), выпустить сертификат на оба имени и
 `деплой/выкатить.sh --nginx`. canonical, sitemap и переадресации с Pages
 пересоберутся сами.
 

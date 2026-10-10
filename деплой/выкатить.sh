@@ -41,7 +41,7 @@ git archive HEAD | tar -x -C "$TMP/src"
 )
 
 if [[ "${1:-}" == "--nginx" ]]; then
-  scp -q деплой/a3.nginx.conf "$HOST:/etc/nginx/sites-available/a3.conf"
+  scp -q деплой/foksten.nginx.conf "$HOST:/etc/nginx/sites-available/a3.conf"
   ssh "$HOST" "ln -sfn /etc/nginx/sites-available/a3.conf /etc/nginx/sites-enabled/a3.conf && nginx -t && systemctl reload nginx"
 fi
 
