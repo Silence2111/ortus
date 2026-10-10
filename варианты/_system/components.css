@@ -1,0 +1,593 @@
+/* =============================================================================
+   ДИЗАЙН-СИСТЕМА — компоненты
+   Работает поверх tokens.css. Классы с префиксом ds- чтобы не конфликтовать.
+   Автоматически подхватывают любую активную вариацию (data-theme).
+   ============================================================================= */
+
+/* --- База документа --- */
+.ds-root {
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  transition: background var(--dur-slow) var(--ease), color var(--dur-slow) var(--ease);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Типографика --- */
+.ds-display { font-family: var(--font-display); font-size: var(--fs-display); font-weight: var(--fw-display); line-height: var(--lh-heading); letter-spacing: var(--ls-display); color: var(--ink); }
+.ds-h1      { font-family: var(--font-display); font-size: var(--fs-h1); font-weight: var(--fw-h1); line-height: var(--lh-heading); letter-spacing: var(--ls-tight); color: var(--ink); }
+.ds-h2      { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: var(--fw-heading); line-height: var(--lh-heading); letter-spacing: var(--ls-tight); color: var(--ink); }
+.ds-h3      { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: var(--fw-heading); line-height: var(--lh-snug); letter-spacing: var(--ls-snug); color: var(--ink); }
+.ds-title   { font-size: var(--fs-title); font-weight: var(--fw-heading); letter-spacing: var(--ls-snug); color: var(--ink); }
+.ds-body    { font-size: var(--fs-base); font-weight: var(--fw-regular); color: var(--ink-2); }
+.ds-muted   { color: var(--muted); }
+.ds-eyebrow { font-family: var(--font-mono); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--muted); }
+.ds-num     { font-family: var(--num-font); font-weight: var(--num-weight); letter-spacing: var(--ls-tight); color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* --- Кнопки --- */
+.ds-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+  padding: 12px 22px; border-radius: var(--radius-btn); border: 1px solid transparent;
+  cursor: pointer; transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+  white-space: nowrap; line-height: 1;
+}
+a.ds-btn { text-decoration: none; }
+.ds-btn:active { transform: translateY(1px); }
+.ds-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.ds-btn--primary { background: var(--btn-primary-bg); color: var(--btn-primary-fg); border-color: var(--btn-primary-border); box-shadow: var(--btn-primary-shadow); }
+.ds-btn--primary:hover { background: var(--btn-primary-bg-hover); }
+
+.ds-btn--ink { background: var(--ink); color: var(--bg); }
+.ds-btn--ink:hover { opacity: .9; }
+
+.ds-btn--secondary { background: var(--surface); color: var(--ink); border-color: var(--border); box-shadow: var(--shadow-xs); }
+.ds-btn--secondary:hover { background: var(--surface-2); }
+
+.ds-btn--ghost { background: transparent; color: var(--ink-2); }
+.ds-btn--ghost:hover { background: var(--surface-2); }
+
+.ds-btn--pill { border-radius: var(--radius-pill); }
+.ds-btn--sm   { padding: 8px 14px; font-size: var(--fs-xs); border-radius: var(--radius-sm); }
+.ds-btn--lg   { padding: 15px 30px; font-size: var(--fs-md); }
+.ds-btn:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+
+/* --- Поля ввода --- */
+.ds-input {
+  width: 100%; font-family: var(--font-sans); font-size: var(--fs-base); font-weight: var(--fw-medium);
+  color: var(--ink); background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-field); padding: 11px 14px; line-height: 1.2;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.ds-input::placeholder { color: var(--muted); }
+.ds-input:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus-ring); }
+.ds-input--error { border-color: var(--danger); }
+.ds-input--error:focus { box-shadow: 0 0 0 3px var(--danger-bg); }
+.ds-input:disabled { background: var(--surface-2); color: var(--muted); cursor: not-allowed; }
+
+/* Капсула с встроенной кнопкой (hero-инпут) */
+.ds-capsule {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-pill); padding: 6px 6px 6px 18px; box-shadow: var(--shadow-xs);
+}
+.ds-capsule input { flex: 1; border: none; background: transparent; font: var(--fw-medium) var(--fs-md) var(--font-sans); color: var(--ink); }
+.ds-capsule input:focus { outline: none; }
+.ds-capsule input::placeholder { color: var(--muted); }
+
+.ds-label { display: block; font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--ink-2); margin-bottom: var(--space-2); }
+
+/* --- Карточки --- */
+.ds-card {
+  background: var(--surface); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--card-shadow);
+}
+.ds-card--flat { box-shadow: none; }
+.ds-card--raised { box-shadow: var(--shadow-md); border-color: transparent; }
+.ds-card--pad-lg { padding: var(--space-8); }
+
+/* Стат-плитка (крупное моно-число + дельта) */
+.ds-stat { display: flex; flex-direction: column; gap: var(--space-2); }
+.ds-stat__label { font-size: var(--fs-xs); color: var(--muted); }
+.ds-stat__value { font-family: var(--num-font); font-size: var(--fs-h2); font-weight: var(--num-weight); letter-spacing: var(--ls-tight); color: var(--ink); font-variant-numeric: tabular-nums; }
+.ds-stat__delta { font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--success); }
+.ds-stat__delta--down { color: var(--danger); }
+
+/* --- Бейджи / статусы --- */
+.ds-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-2xs); font-weight: var(--fw-semibold); line-height: 1;
+  padding: 5px 9px; border-radius: var(--radius-sm);
+}
+.ds-badge--neutral { background: var(--surface-2); color: var(--ink-2); }
+.ds-badge--accent  { background: var(--accent-tint-1); color: var(--accent); }
+.ds-badge--success { background: var(--success-bg); color: var(--success); }
+.ds-badge--danger  { background: var(--danger-bg); color: var(--danger); }
+.ds-badge--warning { background: var(--warning-bg); color: var(--warning); }
+
+/* Точка-индикатор */
+.ds-dot { width: 6px; height: 6px; border-radius: var(--radius-pill); background: currentColor; }
+
+/* --- Тумблер --- */
+.ds-switch { position: relative; display: inline-block; width: 40px; height: 24px; }
+.ds-switch input { opacity: 0; width: 0; height: 0; }
+.ds-switch__track { position: absolute; inset: 0; background: var(--border); border-radius: var(--radius-pill); transition: background var(--dur) var(--ease); cursor: pointer; }
+.ds-switch__track::before { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: var(--radius-pill); box-shadow: var(--shadow-sm); transition: transform var(--dur) var(--ease); }
+.ds-switch input:checked + .ds-switch__track { background: var(--accent); }
+.ds-switch input:checked + .ds-switch__track::before { transform: translateX(16px); }
+
+/* --- Разделитель --- */
+.ds-divider { height: 1px; background: var(--divider); border: none; margin: var(--space-6) 0; }
+
+/* --- Иконки (outline, наследуют цвет текста) --- */
+.ds-icon { width: 24px; height: 24px; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.ds-icon-tile { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--accent-tint-1); color: var(--accent); }
+
+/* =============================================================================
+   ПАТТЕРНЫ (добавлено 09.10.2026)
+   Приёмы сняты с референсов ~/.claude/design-refs — korchagin, rondesignlab,
+   rondesignlab-glass. Токены — только наши: чужие цвета, шрифты и радиусы
+   сюда не переносились (урок Traffdex: «референсы дают приёмы, токены наши»).
+   ============================================================================= */
+
+/* ---------- 1. Голос: лид двумя весами, заголовок с пилюлей, заголовок-сомнение ---------- */
+
+/* Лид, в котором ключевые слова набраны тёмным и плотнее, а связки — светлее.
+   Сканируется по выделенному.  <p class="ds-lead">Если нужен <b>сайт</b> — вы <b>по адресу</b></p> */
+.ds-lead { font-size: var(--fs-title); line-height: var(--lh-snug); font-weight: var(--fw-regular); color: var(--muted); letter-spacing: var(--ls-snug); max-width: 40ch; }
+.ds-lead b, .ds-lead strong { font-weight: var(--fw-semibold); color: var(--ink); }
+
+/* Картинка в пилюле прямо внутри заголовка — встаёт между словами, как буква.
+   <h1 class="ds-display">Строим <span class="ds-headline-pill"><img src=…></span> вместе</h1> */
+.ds-headline-pill {
+  display: inline-block; vertical-align: -0.12em;
+  width: 1.55em; height: 0.82em; margin: 0 0.08em;
+  border-radius: var(--radius-pill); overflow: hidden;
+  background: var(--accent-tint-1);
+}
+.ds-headline-pill > img, .ds-headline-pill > svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Заголовок раздела — вопрос, который клиент задаёт себе. Кавычка висит слева. */
+.ds-question { position: relative; padding-left: 0.6em; }
+.ds-question::before { content: "«"; position: absolute; left: -0.05em; top: 0; color: var(--faint); font-weight: var(--fw-regular); }
+.ds-question::after  { content: "»"; color: var(--faint); font-weight: var(--fw-regular); }
+
+/* Реплика-переход между разделами: аватар и фраза, как сообщение в чате. */
+.ds-bubble {
+  display: inline-flex; align-items: center; gap: var(--space-4);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-pill); padding: var(--space-2) var(--space-6) var(--space-2) var(--space-2);
+  box-shadow: var(--shadow-xs); max-width: 560px;
+}
+.ds-bubble__avatar { width: 52px; height: 52px; flex: none; border-radius: var(--radius-pill); overflow: hidden; background: var(--accent-tint-1); }
+.ds-bubble__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ds-bubble__text { font-size: var(--fs-md); line-height: var(--lh-snug); color: var(--muted); }
+.ds-bubble__text b { color: var(--ink); font-weight: var(--fw-semibold); }
+
+/* Переключатель «кто вы?» — вход в услуги по типу клиента, а не по списку услуг. */
+.ds-segmented { display: inline-flex; gap: var(--space-1); padding: var(--space-1); background: var(--surface-3); border-radius: var(--radius-pill); }
+.ds-segmented button {
+  font: var(--fw-semibold) var(--fs-sm) var(--font-sans); color: var(--ink-2);
+  padding: 9px 16px; border: none; border-radius: var(--radius-pill); background: transparent; cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.ds-segmented button:hover { background: var(--surface); }
+.ds-segmented button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* Строка доступности: «● Махачкала · открыты к проектам» */
+.ds-availability { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--fs-sm); color: var(--muted); }
+.ds-availability .ds-dot { color: var(--success); width: 7px; height: 7px; }
+
+/* ---------- 2. Кейс-карточка: заголовок — результат с числом ---------- */
+
+.ds-case { display: flex; flex-direction: column; gap: var(--space-5); }
+.ds-case__meta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); font-size: var(--fs-sm); }
+.ds-case__client { display: inline-flex; align-items: center; gap: var(--space-3); font-weight: var(--fw-semibold); color: var(--ink); }
+.ds-case__logo { width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--surface-3); flex: none; overflow: hidden; }
+.ds-case__role { color: var(--muted); }
+/* Не «Сайт для клиента», а «Заявки с сайта выросли с 12 до 40 в месяц». Число — только настоящее. */
+.ds-case__title { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: var(--fw-heading); line-height: var(--lh-heading); letter-spacing: var(--ls-tight); color: var(--ink); max-width: 22ch; }
+/* Абзац «было → ограничение → что сделали → что вышло». Ровно одна фраза жирным — своё действие. */
+.ds-case__story { color: var(--ink-2); max-width: 62ch; }
+.ds-case__story b { color: var(--ink); font-weight: var(--fw-semibold); }
+.ds-case__metrics { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.ds-case__media {
+  border-radius: var(--radius-2xl); background: var(--surface-3); overflow: hidden;
+  aspect-ratio: 16 / 9; border: 1px solid var(--border);
+}
+.ds-case__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Чип метрики: число акцентом моно-шрифтом + пояснение тихо. */
+.ds-metric-chip {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+  font-size: var(--fs-xs); color: var(--muted); background: var(--surface);
+}
+.ds-metric-chip b { font-family: var(--font-mono); font-weight: var(--fw-extrabold); color: var(--accent); font-variant-numeric: tabular-nums; }
+
+/* Нейтральный чип объёма работ: «3 человека», «2 недели», «12 экранов». */
+.ds-chip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: var(--radius-pill); background: var(--surface-3); color: var(--ink-2); font-size: var(--fs-xs); font-weight: var(--fw-medium); }
+
+/* ---------- 3. Страница кейса: цитата клиента, авторы, «коротко», факты, главы, результат ---------- */
+
+/* Кейс начинается с проблемы клиента его же словами. */
+.ds-client-quote { display: flex; flex-direction: column; gap: var(--space-5); max-width: 720px; }
+.ds-client-quote__text { position: relative; font-size: var(--fs-title); line-height: var(--lh-snug); color: var(--ink); padding-left: var(--space-8); }
+.ds-client-quote__text::before { content: "«"; position: absolute; left: 0; top: -0.1em; font-size: 1.6em; line-height: 1; color: var(--faint); }
+.ds-person { display: inline-flex; align-items: center; gap: var(--space-3); }
+.ds-person__avatar { width: 44px; height: 44px; border-radius: var(--radius-pill); overflow: hidden; background: var(--accent-tint-1); flex: none; }
+.ds-person__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ds-person__name { font-weight: var(--fw-semibold); color: var(--ink); line-height: 1.3; }
+.ds-person__role { font-size: var(--fs-sm); color: var(--muted); line-height: 1.3; }
+
+/* «Написал / Проверил» — авторство кейса двумя людьми. */
+.ds-authors { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-6); }
+.ds-authors__label { font-size: var(--fs-xs); color: var(--muted); margin-bottom: 2px; }
+
+/* «Коротко»: подпись слева, справа — цифры одной фразой и три пункта с жирным началом. */
+.ds-tldr { display: grid; grid-template-columns: 160px 1fr; gap: var(--space-6); }
+.ds-tldr__label { color: var(--muted); font-size: var(--fs-sm); }
+.ds-tldr__body { color: var(--ink-2); }
+.ds-tldr__body ul { margin: var(--space-3) 0 0; padding-left: 1.1em; display: grid; gap: var(--space-2); }
+.ds-tldr__body b { color: var(--ink); font-weight: var(--fw-semibold); }
+
+/* Таблица фактов проекта: Клиент · Отрасль · Город · Срок. */
+.ds-facts { display: grid; grid-template-columns: max-content 1fr; margin: 0; }
+.ds-facts dt, .ds-facts dd { margin: 0; padding: var(--space-3) 0; border-bottom: 1px solid var(--divider); font-size: var(--fs-sm); }
+.ds-facts dt { color: var(--muted); padding-right: var(--space-10); }
+.ds-facts dd { color: var(--ink); font-weight: var(--fw-medium); }
+
+/* Глава кейса: общее слово уходит в надпись, заголовок говорит смысл решения. */
+.ds-chapter { display: flex; flex-direction: column; gap: var(--space-3); max-width: 760px; }
+.ds-chapter__kicker { font-size: var(--fs-sm); color: var(--muted); }
+.ds-chapter__title { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: var(--fw-heading); line-height: var(--lh-heading); letter-spacing: var(--ls-tight); color: var(--ink); }
+
+/* Строки результата: «38% — быстрее обработка заявки» + откуда цифра. */
+.ds-outcomes { display: grid; gap: var(--space-6); max-width: 720px; }
+.ds-outcome__head { font-size: var(--fs-title); color: var(--ink); line-height: var(--lh-snug); }
+.ds-outcome__head b { font-family: var(--font-mono); font-weight: var(--fw-extrabold); font-variant-numeric: tabular-nums; }
+.ds-outcome__note { margin-top: var(--space-1); color: var(--muted); font-size: var(--fs-sm); }
+
+/* ---------- 4. Закрытая работа (NDA): объём виден, детали нет ---------- */
+
+.ds-locked { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--surface-3); isolation: isolate; }
+.ds-locked__media { width: 100%; height: 100%; object-fit: cover; display: block; filter: blur(var(--locked-blur)) saturate(.9); transform: scale(1.12); }
+.ds-locked__lock {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 40px; height: 40px; border-radius: var(--radius-pill); background: var(--surface);
+  display: grid; place-items: center; color: var(--ink); box-shadow: var(--shadow-sm);
+}
+.ds-locked__lock .ds-icon { width: 18px; height: 18px; }
+.ds-locked__label { position: absolute; left: var(--space-3); bottom: var(--space-3); font-size: var(--fs-2xs); color: var(--ink-2); background: var(--surface); padding: 4px 8px; border-radius: var(--radius-pill); }
+/* Галерея рядами одной высоты и разной ширины */
+.ds-locked-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 180px; gap: var(--space-3); }
+.ds-locked-grid > * { grid-column: span 3; }
+.ds-locked-grid > .w4 { grid-column: span 4; }
+.ds-locked-grid > .w5 { grid-column: span 5; }
+.ds-locked-grid > .w6 { grid-column: span 6; }
+@media (max-width: 720px) { .ds-locked-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; } .ds-locked-grid > * { grid-column: span 1 !important; } }
+
+/* ---------- 5. Стекло: карточки, светящиеся плитки, тихие числа ---------- */
+
+/* Стеклянная карточка. Нужна подложка — фото или градиент; на ровном фоне это просто белая карточка. */
+.ds-glass {
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-edge), var(--shadow-lg);
+  padding: var(--space-6);
+}
+
+/* Плитка, светящаяся изнутри цветом из палитры данных. Цвет — смысловой (состояние, тип),
+   кнопки при этом остаются нейтральными. Не больше 2–3 таких плиток на экран. */
+.ds-glow-tile {
+  --glow: var(--data-4);
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: var(--radius-2xl); padding: var(--space-6); min-height: 160px;
+  background:
+    radial-gradient(90% 80% at 50% 62%, var(--glow) 0%, color-mix(in srgb, var(--glow) 55%, transparent) 45%, transparent 80%),
+    color-mix(in srgb, var(--glow) 18%, var(--surface));
+  color: var(--ink);
+  box-shadow: var(--glass-edge), var(--shadow-md);
+}
+.ds-glow-tile--violet { --glow: var(--data-1); color: var(--glow-ink-strong, #fff); }  /* текст на самой яркой плитке: тема задаёт, если data-1 светлый */
+.ds-glow-tile--sky    { --glow: var(--data-2); }
+.ds-glow-tile--mint   { --glow: var(--data-4); }
+.ds-glow-tile--peach  { --glow: var(--data-5); }
+.ds-glow-tile__label { font-size: var(--fs-sm); opacity: .78; }
+
+/* Крупное «тихое» число: тонкое начертание вместо жирного моно, изменение — надстрочно.
+   <span class="ds-num--quiet">8 574<sup>+37</sup></span>   Для премиальных экранов; в таблицах — обычный ds-num. */
+.ds-num--quiet {
+  font-family: var(--font-sans); font-weight: var(--fw-light);
+  font-size: var(--fs-display); letter-spacing: var(--ls-tighter); line-height: 1;
+  color: inherit; font-variant-numeric: tabular-nums;
+}
+.ds-num--quiet sup { font-size: .28em; font-weight: var(--fw-medium); letter-spacing: 0; vertical-align: super; margin-left: .15em; opacity: .6; }
+
+/* Круглая кнопка-стрелка на стекле, в правом верхнем углу карточки. */
+.ds-icon-btn {
+  width: 40px; height: 40px; flex: none; border-radius: var(--radius-pill);
+  display: grid; place-items: center; cursor: pointer;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease);
+}
+.ds-icon-btn:hover { transform: translate(1px, -1px); }
+.ds-icon-btn .ds-icon { width: 18px; height: 18px; }
+.ds-icon-btn--glass { background: var(--glass-fill); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: var(--glass-edge); border-color: transparent; }
+
+@media (max-width: 720px) {
+  .ds-tldr { grid-template-columns: 1fr; gap: var(--space-2); }
+  .ds-case__meta { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+
+/* ---------- Общие крючки для тем (09.10.2026) ---------- */
+/* Слово-акцент внутри крупного заголовка: <h1 class="ds-display">Строим <em>вместе</em></h1>.
+   В базовой теме ничего не меняет; темы задают --display-em (цвет) и --display-em-weight. */
+.ds-display em, .ds-h1 em, .ds-h2 em, .ds-h3 em, .ds-case__title em, .ds-chapter__title em {
+  font-style: normal; color: var(--display-em, inherit); font-weight: var(--display-em-weight, inherit);
+}
+/* Маркер-выделение слова (в acid-light — кислотно-жёлтый, в базе — мягкая плашка акцента). */
+.ds-mark { background: var(--highlight, var(--accent-tint-2)); color: var(--highlight-ink, inherit); padding: 0 .18em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+/* Метка-ярлык «Лучшее», «Новое» — в темах со вторым сигнальным цветом. */
+.ds-tag { display: inline-flex; align-items: center; padding: 5px 10px; border-radius: var(--radius-pill); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); background: var(--highlight, var(--accent-tint-1)); color: var(--highlight-ink, var(--accent)); }
+/* Встроенная тема glass: стекло видно только на подложке — даём её. */
+[data-theme="glass"] .ds-root, .ds-root[data-theme="glass"] {
+  background: radial-gradient(60% 50% at 15% 10%, rgba(127,191,240,.35), transparent 70%),
+              radial-gradient(50% 45% at 90% 20%, rgba(99,85,230,.18), transparent 70%),
+              radial-gradient(60% 50% at 70% 95%, rgba(143,224,188,.30), transparent 70%), var(--bg);
+  background-attachment: fixed;
+}
+[data-theme="studio"] .ds-lockup-cover { --cover: #000; --cover-ink: #fff; }
+[data-theme="glass"] .ds-card { -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4); backdrop-filter: blur(var(--glass-blur)) saturate(1.4); box-shadow: var(--glass-edge), var(--shadow-md); border-color: transparent; border-radius: var(--radius-2xl); }
+
+/* =============================================================================
+   ПАТТЕРНЫ, ВЫПУСК 2 (09.10.2026) — по обходу всех 263 страниц rondesignlab:
+   133 кейса, 36 историй, 94 концепта. Отобраны приёмы, которые повторяются
+   десятками раз. Только структура и подача; тексты и картинки — свои.
+   ============================================================================= */
+
+/* ---------- Плита-обложка «мы × клиент» (истории проектов под NDA) ---------- */
+/* Вместо скриншотов — цветная плита в фирменном цвете клиента и два знака через ×. */
+.ds-lockup-cover {
+  /* по умолчанию — пара цветов главной кнопки: она проверена на контраст в каждой теме.
+     Для истории клиента задайте его цвет: style="--cover:#E10600; --cover-ink:#fff" */
+  --cover: var(--btn-primary-bg); --cover-ink: var(--btn-primary-fg);
+  border-radius: var(--radius-2xl); background: var(--cover); color: var(--cover-ink);
+  aspect-ratio: 16 / 7; display: grid; place-items: center; position: relative; overflow: hidden;
+}
+.ds-lockup-cover__marks { display: inline-flex; align-items: center; gap: clamp(12px, 2vw, 24px); font: var(--fw-bold) clamp(22px, 3vw, 40px)/1 var(--font-display); letter-spacing: -0.02em; }
+.ds-lockup-cover__x { font-weight: var(--fw-regular); opacity: .7; }
+.ds-lockup-cover__caption { position: absolute; left: 0; right: 0; bottom: calc(-1 * var(--space-8)); text-align: center; font-size: var(--fs-2xs); color: var(--muted); }
+
+/* ---------- Слайд с цифрами вразброс («180+ · 9+ · 11+») ---------- */
+.ds-stat-slide {
+  position: relative; border-radius: var(--radius-2xl); background: var(--slide-bg, var(--ink)); color: var(--slide-ink, var(--bg));
+  min-height: 360px; padding: var(--space-10); overflow: hidden;
+}
+.ds-stat-slide__title { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: var(--fw-heading); max-width: 18ch; line-height: var(--lh-heading); }
+.ds-stat-slide__n { position: absolute; font-family: var(--num-font); font-weight: var(--num-weight); font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.03em; line-height: 1; }
+.ds-stat-slide__n small { display: block; font: var(--fw-regular) var(--fs-xs) var(--font-sans); letter-spacing: 0; opacity: .6; margin-top: 6px; }
+.ds-stat-slide__n:nth-of-type(1) { right: 12%; top: 22%; }
+.ds-stat-slide__n:nth-of-type(2) { left: 38%; bottom: 14%; }
+.ds-stat-slide__n:nth-of-type(3) { right: 6%; bottom: 10%; color: var(--accent-light); }
+
+/* ---------- Огромное слово водяным знаком за контентом ---------- */
+.ds-watermark { position: relative; overflow: hidden; isolation: isolate; }
+.ds-watermark::before {
+  content: attr(data-word); position: absolute; left: 50%; bottom: -0.18em; transform: translateX(-50%); z-index: -1;
+  font: var(--fw-bold) clamp(80px, 18vw, 260px)/1 var(--font-display); letter-spacing: -0.05em; white-space: nowrap;
+  color: var(--ink); opacity: .06; pointer-events: none;
+}
+
+/* ---------- Карточка персоны: цели, мотивация, боли ---------- */
+.ds-persona { display: grid; grid-template-columns: 160px 1fr; gap: var(--space-6); background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: var(--space-6); }
+.ds-persona__photo { aspect-ratio: 3 / 4; border-radius: var(--radius-lg); background: var(--surface-3); overflow: hidden; }
+.ds-persona__photo img { width: 100%; height: 100%; object-fit: cover; }
+.ds-persona__name { font-family: var(--font-display); font-weight: var(--fw-heading); font-size: var(--fs-title); color: var(--ink); }
+.ds-persona__meta { display: flex; gap: var(--space-4); font-size: var(--fs-xs); color: var(--muted); margin: 4px 0 var(--space-4); }
+.ds-persona__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.ds-persona__grid h4 { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--ink); }
+.ds-persona__grid p { margin: 0; font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.5; }
+@media (max-width: 720px) { .ds-persona { grid-template-columns: 1fr; } .ds-persona__grid { grid-template-columns: 1fr; } }
+
+/* ---------- Таймлайн этапов проекта ---------- */
+.ds-timeline { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-3); position: relative; padding-top: var(--space-6); }
+.ds-timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: var(--border-2); }
+.ds-timeline__step { position: relative; display: flex; flex-direction: column; gap: 4px; }
+.ds-timeline__step::before { content: ""; position: absolute; top: calc(-1 * var(--space-6)); left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-2); }
+.ds-timeline__step--done::before { background: var(--accent); border-color: var(--accent); }
+.ds-timeline__step b { font-size: var(--fs-sm); color: var(--ink); font-weight: var(--fw-semibold); }
+.ds-timeline__step span { font-size: var(--fs-xs); color: var(--muted); }
+@media (max-width: 720px) { .ds-timeline { grid-auto-flow: row; padding-top: 0; padding-left: var(--space-6); } .ds-timeline::before { top: 0; bottom: 0; left: 7px; right: auto; width: 2px; height: auto; } .ds-timeline__step::before { top: 2px; left: calc(-1 * var(--space-6)); } }
+
+/* ---------- Образец шрифта и палитра (брендбук в кейсе) ---------- */
+.ds-specimen { display: grid; grid-template-columns: auto 1fr; gap: var(--space-8); align-items: end; background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: var(--space-8); }
+.ds-specimen__aa { font: var(--fw-heading) clamp(80px, 12vw, 160px)/0.85 var(--font-display); color: var(--ink); letter-spacing: -0.04em; }
+.ds-specimen__name { font-family: var(--font-display); font-size: var(--fs-title); font-weight: var(--fw-heading); color: var(--ink); }
+.ds-specimen__chars { margin-top: var(--space-2); font-size: var(--fs-sm); color: var(--muted); letter-spacing: .04em; line-height: 1.7; word-break: break-all; }
+.ds-swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: var(--space-3); }
+.ds-swatch { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--card-border); background: var(--surface); }
+.ds-swatch i { display: block; aspect-ratio: 4 / 3; background: var(--c, var(--accent)); }
+.ds-swatch span { display: block; padding: 8px 10px; font: var(--fw-semibold) var(--fs-2xs) var(--font-mono); color: var(--ink-2); }
+
+/* ---------- Бейдж рейтинга с внешней площадки ---------- */
+.ds-rating { display: inline-flex; align-items: center; gap: var(--space-3); padding: 8px 14px 8px 8px; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--card-border); box-shadow: var(--shadow-xs); }
+.ds-rating__mark { width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font: var(--fw-bold) 13px var(--font-sans); }
+.ds-rating__score { font: var(--fw-bold) var(--fs-md) var(--num-font); color: var(--ink); }
+.ds-rating__stars { color: #F5B301; letter-spacing: 1px; font-size: 13px; }
+.ds-rating__count { font-size: var(--fs-xs); color: var(--muted); }
+
+/* ---------- Карточка человека команды на цветной подложке ---------- */
+.ds-team-card { display: flex; flex-direction: column; gap: var(--space-2); }
+.ds-team-card__photo { aspect-ratio: 4 / 5; border-radius: var(--radius-xl); overflow: hidden; background: var(--tint, var(--data-6)); position: relative; }
+.ds-team-card__photo img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.ds-team-card__name { font-weight: var(--fw-semibold); color: var(--ink); }
+.ds-team-card__role { font-size: var(--fs-sm); color: var(--muted); }
+.ds-team-card__tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* ---------- Диалог ИИ-помощника: реплики и подсказки ---------- */
+.ds-chat { display: flex; flex-direction: column; gap: var(--space-2); }
+.ds-chat__msg { max-width: 78%; padding: 10px 14px; border-radius: 18px; font-size: var(--fs-sm); line-height: 1.4; }
+.ds-chat__msg--in  { align-self: flex-start; background: var(--surface); color: var(--ink); border: 1px solid var(--card-border); border-bottom-left-radius: 6px; }
+.ds-chat__msg--out { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 6px; }
+.ds-chat__typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 12px 14px; border-radius: 18px; background: var(--surface); border: 1px solid var(--card-border); }
+.ds-chat__typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: ds-typing 1.2s infinite var(--ease); }
+.ds-chat__typing i:nth-child(2) { animation-delay: .15s; } .ds-chat__typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes ds-typing { 0%, 60%, 100% { opacity: .3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .ds-chat__typing i { animation: none; } }
+.ds-chat__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-2); }
+.ds-chat__chips button { font: var(--fw-medium) var(--fs-xs) var(--font-sans); padding: 8px 12px; border-radius: var(--radius-pill); border: 1px solid var(--card-border); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+
+/* ---------- Подложка-карта под карточками (недвижимость, логистика, найм) ---------- */
+.ds-mapbg {
+  position: relative; border-radius: var(--radius-2xl); overflow: hidden; background-color: var(--surface-3);
+  background-image:
+    radial-gradient(circle at 22% 38%, var(--accent) 0 5px, transparent 6px),
+    radial-gradient(circle at 64% 58%, var(--accent) 0 5px, transparent 6px),
+    radial-gradient(circle at 80% 24%, var(--accent) 0 5px, transparent 6px),
+    linear-gradient(115deg, transparent 47%, var(--border-2) 48% 49%, transparent 50%),
+    linear-gradient(25deg, transparent 58%, var(--border-2) 59% 60%, transparent 61%),
+    repeating-linear-gradient(0deg, transparent 0 46px, var(--divider) 46px 47px),
+    repeating-linear-gradient(90deg, transparent 0 46px, var(--divider) 46px 47px);
+}
+
+/* ---------- Карточка «другие кейсы» со счётчиками ---------- */
+.ds-case-tile { display: flex; flex-direction: column; gap: var(--space-2); text-decoration: none; color: inherit; }
+.ds-case-tile__media { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius-xl); overflow: hidden; background: var(--surface-3); }
+.ds-case-tile__media::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.45)); }
+.ds-case-tile__title { position: absolute; left: var(--space-4); right: var(--space-4); bottom: var(--space-4); z-index: 1; color: #fff; font: var(--fw-medium) var(--fs-md)/1.25 var(--font-display); }
+.ds-case-tile__tag { position: absolute; top: var(--space-3); right: var(--space-3); z-index: 1; font-size: var(--fs-2xs); color: #fff; background: rgba(255,255,255,.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 5px 10px; border-radius: var(--radius-pill); }
+.ds-case-tile__result { font-size: var(--fs-sm); color: var(--ink-2); }
+.ds-case-tile__counters { display: flex; gap: var(--space-3); font-size: var(--fs-2xs); color: var(--muted); }
+
+/* =============================================================================
+   МЕХАНИКА (09.10.2026) — CSS к motion.js. Приёмы сняты замером с rondesignlab
+   и ux-korchagin; код свой. Всё гасится при prefers-reduced-motion.
+   ============================================================================= */
+
+/* ---------- Появление при прокрутке ---------- */
+[data-reveal] { opacity: 0; transform: translate3d(0, var(--reveal-shift), 0);
+  transition: opacity var(--reveal-dur) var(--ease), transform var(--reveal-dur) var(--ease); }
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+/* ---------- Наведение: четыре приёма, одна длительность ---------- */
+/* Инверсия: светлое → тёмное и наоборот. Главный приём rondesignlab — одно правило на все кнопки. */
+.ds-invert { transition: background var(--dur-hover) var(--ease-hover), color var(--dur-hover) var(--ease-hover), border-color var(--dur-hover) var(--ease-hover); }
+.ds-invert:hover { background: var(--ink) !important; color: var(--bg) !important; border-color: var(--ink) !important; box-shadow: none !important; }
+/* Подчёркивание вырастает слева направо */
+.ds-link-grow { position: relative; text-decoration: none; color: inherit; }
+.ds-link-grow::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-hover) var(--ease); }
+.ds-link-grow:hover::after { transform: scaleX(1); }
+/* Картинка мягко отзывается: чуть ярче и крупнее, без резких эффектов */
+.ds-media-hover { overflow: hidden; }
+.ds-media-hover img, .ds-media-hover > .ds-media-hover__in { transition: transform calc(var(--dur-hover) * 2) var(--ease), filter var(--dur-hover) var(--ease); }
+.ds-media-hover:hover img, .ds-media-hover:hover > .ds-media-hover__in { transform: scale(1.04); filter: brightness(1.05) saturate(1.05); }
+/* Стрелка сдвигается в сторону действия */
+.ds-nudge { display: inline-flex; align-items: center; gap: .4em; }
+.ds-nudge .ds-nudge__arrow { display: inline-block; transition: transform var(--dur-hover) var(--ease); }
+.ds-nudge:hover .ds-nudge__arrow { transform: translateX(4px); }
+.ds-nudge:hover .ds-nudge__arrow--diag { transform: translate(3px, -3px); }
+
+/* ---------- Шапка из плиток, висит над страницей ---------- */
+.ds-floating-nav { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 50; width: min(1210px, calc(100% - 24px));
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; pointer-events: none; }
+.ds-floating-nav > * { pointer-events: auto; }
+.ds-floating-nav__tiles { display: flex; gap: 8px; }
+.ds-floating-nav__tile { display: inline-flex; align-items: center; height: 52px; padding: 0 20px; border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface) 72%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  color: var(--ink); text-decoration: none; font-weight: var(--fw-medium); font-size: var(--fs-sm); }
+.ds-floating-nav__tile.is-active { background: var(--ink); color: var(--bg); }
+@media (max-width: 860px) { .ds-floating-nav__tiles .ds-floating-nav__tile:not(.is-active):not(:first-child) { display: none; } }
+
+/* ---------- Стопка карточек: каждая наезжает на предыдущую ---------- */
+.ds-stack { display: flex; flex-direction: column; gap: var(--space-6); }
+.ds-stack > * { position: sticky; top: calc(var(--stack-top, 96px) + var(--i, 0) * 18px); box-shadow: var(--shadow-lg); }
+
+/* ---------- Прилипшая сцена с плывущими элементами ---------- */
+.ds-scene { position: relative; height: var(--scene-h, 220vh); }
+.ds-scene__stage { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; overflow: hidden; }
+.ds-scene__title { position: relative; z-index: 2; text-align: center; max-width: 18ch; }
+.ds-scene [data-float] { position: absolute; z-index: 1; will-change: transform; }
+
+/* ---------- Смена фото по пунктам: фото слева прилипло, пункты справа ---------- */
+.ds-swap { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; }
+.ds-swap__media { position: sticky; top: 120px; aspect-ratio: 4 / 5; border-radius: var(--radius-2xl); overflow: hidden; background: var(--surface-3); }
+.ds-swap__media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.03); transition: opacity 500ms var(--ease), transform 700ms var(--ease); }
+.ds-swap__media > .is-on { opacity: 1; transform: none; }
+.ds-swap__items { display: flex; flex-direction: column; gap: 30vh; padding: 10vh 0 30vh; }
+.ds-swap__item { opacity: .35; transition: opacity 400ms var(--ease); }
+.ds-swap__item.is-on { opacity: 1; }
+@media (max-width: 860px) { .ds-swap { grid-template-columns: 1fr; } .ds-swap__media { position: relative; top: 0; } .ds-swap__items { gap: var(--space-8); padding: 0; } .ds-swap__item { opacity: 1; } }
+
+/* ---------- Абзац проявляется по словам ---------- */
+.ds-read { font-size: var(--fs-h3); line-height: 1.35; color: var(--ink); max-width: 30ch; }
+.ds-read__w { opacity: .18; transition: opacity 250ms linear; }
+.ds-read__w.is-on { opacity: 1; }
+
+/* ---------- Живой человек в углу ---------- */
+.ds-presence { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 150px; border-radius: 22px; overflow: hidden;
+  background: var(--surface); box-shadow: var(--shadow-xl); opacity: 0; transform: translateY(16px) scale(.96); pointer-events: none;
+  transition: opacity 400ms var(--ease), transform 400ms var(--ease); }
+.ds-presence.is-in { opacity: 1; transform: none; pointer-events: auto; }
+.ds-presence__media { aspect-ratio: 9 / 16; max-height: 240px; width: 100%; object-fit: cover; display: block; background: var(--surface-3); }
+.ds-presence__cta { position: absolute; left: 8px; right: 8px; bottom: 8px; display: block; text-align: center; padding: 9px 10px; border-radius: var(--radius-pill);
+  background: var(--ink); color: var(--bg); font: var(--fw-semibold) 13px var(--font-sans); text-decoration: none; }
+.ds-presence__close { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255,255,255,.92); color: #111; font-size: 12px; display: grid; place-items: center; }
+@media (max-width: 560px) { .ds-presence { width: 112px; right: 12px; bottom: 12px; } }
+
+/* ---------- Мерцающая заглушка на время загрузки ---------- */
+.ds-skeleton { position: relative; overflow: hidden; background: var(--surface-3); border-radius: var(--radius-md); }
+.ds-skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 70%, transparent), transparent); animation: ds-shimmer 1.4s linear infinite; }
+@keyframes ds-shimmer { to { transform: translateX(100%); } }
+
+/* ---------- Бегущая строка (клиенты, отрасли, награды) ---------- */
+.ds-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.ds-marquee__track { display: flex; gap: var(--space-10); width: max-content; animation: ds-marquee var(--marquee-dur, 32s) linear infinite; }
+.ds-marquee:hover .ds-marquee__track { animation-play-state: paused; }
+@keyframes ds-marquee { to { transform: translateX(-50%); } }
+
+/* ---------- Подпись под картинкой (и для людей, и для поиска) ---------- */
+.ds-caption { margin-top: var(--space-3); text-align: center; font-size: var(--fs-xs); color: var(--muted); }
+
+/* ---------- Наклейки: карточки под углом вокруг заголовка ---------- */
+.ds-sticker { display: inline-flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 18px; background: var(--tint, var(--data-6));
+  color: var(--ink); box-shadow: var(--shadow-sm); transform: rotate(var(--rot, -3deg)); min-width: 140px; }
+.ds-sticker b { font: var(--num-weight) 28px/1 var(--num-font); letter-spacing: -0.02em; }
+.ds-sticker span { font-size: var(--fs-2xs); color: var(--ink-2); }
+
+/* ---------- Просмотр во весь экран и встряхивание замка ---------- */
+.ds-lightbox { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 5vh 5vw; background: rgba(8,8,10,.86);
+  opacity: 0; pointer-events: none; transition: opacity 250ms var(--ease); }
+.ds-lightbox.is-on { opacity: 1; pointer-events: auto; }
+.ds-lightbox img { max-width: 100%; max-height: 82vh; border-radius: var(--radius-lg); transform: scale(.97); transition: transform 300ms var(--ease); }
+.ds-lightbox.is-on img { transform: none; }
+.ds-lightbox__cap { color: #ddd; font-size: var(--fs-sm); margin-top: 12px; text-align: center; }
+.ds-lightbox__close { position: absolute; top: 18px; right: 18px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff; color: #111; cursor: pointer; }
+.ds-locked__lock.is-shake { animation: ds-shake 450ms var(--ease); }
+@keyframes ds-shake { 0%, 100% { transform: translate(-50%, -50%); } 20% { transform: translate(calc(-50% - 6px), -50%) rotate(-6deg); } 40% { transform: translate(calc(-50% + 6px), -50%) rotate(6deg); } 60% { transform: translate(calc(-50% - 4px), -50%); } 80% { transform: translate(calc(-50% + 3px), -50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .ds-marquee__track, .ds-skeleton::after { animation: none; }
+  .ds-scene { height: auto; } .ds-scene__stage { position: relative; height: auto; padding: var(--space-16) 0; }
+  .ds-scene [data-float] { position: relative; transform: none !important; }
+  .ds-read__w { opacity: 1; }
+}
+
+/* =============================================================================
+   ЭМОДЗИ И ИКОНКИ (09.10.2026)
+   Сами рисунки и их стили — в emoji/emoji.js и icons/icons.js (подключаются отдельно,
+   стили вставляют сами). Ручки по темам — в tokens.css. Здесь — посадка в наши компоненты.
+   Где ставить — PLAYBOOK.md, раздел «Эмодзи и иконки».
+   ============================================================================= */
+.ds-icon-tile .ds-ico, .ds-icon-tile .ds-emo { width: 24px; height: 24px; vertical-align: 0; }
+.ds-icon-btn .ds-ico, .ds-locked__lock .ds-ico { width: 18px; height: 18px; vertical-align: 0; }
+.ds-chip .ds-emo, .ds-chip .ds-ico, .ds-tag .ds-emo, .ds-tag .ds-ico { margin-right: 1px; }

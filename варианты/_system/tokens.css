@@ -1,0 +1,422 @@
+/* =============================================================================
+   ДИЗАЙН-СИСТЕМА — токены
+   Apple-минимализм: светлая база, много воздуха, один спокойный акцент,
+   крупные моно-числа. Один набор токенов на все проекты.
+
+   Вариации переключаются атрибутом на <html> или любом контейнере:
+     <html data-theme="default">   светлая база (по умолчанию)
+     <html data-theme="dark">      тёмный премиум
+     <html data-theme="pastel">    спокойный пастельный
+     <html data-theme="glass">     мягкое стекло (с 09.10.2026)
+   ============================================================================= */
+
+:root,
+[data-theme="default"] {
+  /* --- Акцент (один спокойный акцент на экран) --- */
+  --accent:            #225AEA;
+  --accent-hover:      #1B49C4;
+  --accent-light:      #5B8CFF;
+  --accent-tint-1:     #EAF0FF;   /* soft fill, ::selection            */
+  --accent-tint-2:     #DCE6FF;
+  --accent-tint-3:     #C9D8FB;
+  --on-accent:         #FFFFFF;   /* текст на акценте                   */
+
+  /* --- Текст (ink → body → muted → faint) --- */
+  --ink:               #0E1116;   /* заголовки, «мягче чёрного»         */
+  --ink-2:             #3A3D45;   /* основной текст (самый частый)      */
+  --muted:             #8B8E97;   /* вторичный / подписи                */
+  --muted-2:           #9A9DA6;
+  --faint:             #B8BAC2;   /* faint / disabled                   */
+  --disabled:          #C8C8D0;
+
+  /* --- Поверхности --- */
+  --bg:                #F4F5F7;   /* фон страницы                       */
+  --surface:           #FFFFFF;   /* карточки                           */
+  --surface-2:         #FBFBFD;   /* приподнятая поверхность            */
+  --surface-3:         #F0F1F4;   /* subtle fill                        */
+
+  /* --- Границы / разделители --- */
+  --border:            #ECECF2;   /* line — границы карточек             */
+  --border-2:          #E4E6EC;
+  --divider:           rgba(14, 17, 22, .08);
+
+  /* --- Семантика --- */
+  --success:           #16A34A;
+  --success-bg:        #E7F6ED;
+  --success-tint:      #C7EAD4;
+  --danger:            #E5484D;
+  --danger-bg:         #FDECEC;
+  --danger-tint:       #F6D5D6;
+  --warning:           #E8A317;
+  --warning-bg:        #FCF3E1;
+  --info:              #225AEA;
+  --info-bg:           #F4FAFE;
+
+  /* --- Данные / категории (charts) --- */
+  --data-1:            #6355E6;   /* violet     */
+  --data-2:            #7FBFF0;   /* light blue */
+  --data-3:            #5B8CFF;   /* blue       */
+  --data-4:            #8FE0BC;   /* mint       */
+  --data-5:            #F6C77C;   /* peach      */
+  --data-6:            #DCEEFB;   /* pale blue  */
+
+  /* --- Тени: мягкие нейтральные; цветная — только у CTA --- */
+  --shadow-xs:         0 1px 2px rgba(14, 17, 22, .05);
+  --shadow-sm:         0 1px 3px rgba(14, 17, 22, .10);
+  --shadow-md:         0 4px 12px rgba(14, 17, 22, .08);
+  --shadow-lg:         0 16px 40px rgba(14, 17, 22, .14);
+  --shadow-xl:         0 24px 60px rgba(14, 17, 22, .20);
+  --shadow-cta:        0 4px 12px rgba(34, 90, 234, .30);
+  --focus-ring:        0 0 0 3px rgba(34, 90, 234, .14);
+}
+
+/* =============================================================================
+   ВАРИАЦИЯ: Тёмный премиум
+   near-black поверхности, неоновые акценты (blue / teal / violet)
+   ============================================================================= */
+[data-theme="dark"] {
+  --slide-bg: var(--surface-3);
+  --slide-ink: var(--ink);
+  --glass-fill: rgba(255,255,255,.07);
+  --glass-edge: inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.06);
+  --accent:            #2C6BFF;
+  --accent-hover:      #4E82FF;
+  --accent-light:      #6D97FF;
+  --accent-tint-1:     rgba(44, 107, 255, .14);
+  --accent-tint-2:     rgba(44, 107, 255, .22);
+  --accent-tint-3:     rgba(44, 107, 255, .30);
+  --on-accent:         #FFFFFF;
+
+  --ink:               #F4F5F7;
+  --ink-2:             #D8D8DD;
+  --muted:             #8E8EA8;
+  --muted-2:           #6B6B78;
+  --faint:             #5A5D66;
+  --disabled:          #43454E;
+
+  --bg:                #0B0B0C;
+  --surface:           #121317;
+  --surface-2:         rgba(255, 255, 255, .04);
+  --surface-3:         rgba(255, 255, 255, .06);
+
+  --border:            rgba(255, 255, 255, .08);
+  --border-2:          rgba(255, 255, 255, .12);
+  --divider:           rgba(255, 255, 255, .08);
+
+  --success:           #3ED598;
+  --success-bg:        rgba(62, 213, 152, .12);
+  --success-tint:      rgba(62, 213, 152, .24);
+  --danger:            #FF6B7A;
+  --danger-bg:         rgba(255, 107, 122, .12);
+  --danger-tint:       rgba(255, 107, 122, .24);
+  --warning:           #FFB43D;
+  --warning-bg:        rgba(255, 180, 61, .12);
+  --info:              #2C6BFF;
+  --info-bg:           rgba(44, 107, 255, .12);
+
+  /* неоновая палитра данных */
+  --data-1:            #7A3CFF;   /* violet */
+  --data-2:            #1BC8E3;   /* cyan   */
+  --data-3:            #2C6BFF;   /* blue   */
+  --data-4:            #1BE3C2;   /* teal   */
+  --data-5:            #FFB43D;   /* amber  */
+  --data-6:            #6D97FF;
+
+  --shadow-xs:         0 1px 2px rgba(0, 0, 0, .40);
+  --shadow-sm:         0 1px 3px rgba(0, 0, 0, .50);
+  --shadow-md:         0 4px 24px rgba(0, 0, 0, .55), 0 1px 3px rgba(0, 0, 0, .40);
+  --shadow-lg:         0 16px 40px rgba(0, 0, 0, .60);
+  --shadow-xl:         0 24px 60px rgba(0, 0, 0, .70);
+  --shadow-cta:        0 6px 18px rgba(44, 107, 255, .45);
+  --focus-ring:        0 0 0 3px rgba(44, 107, 255, .28);
+}
+
+/* =============================================================================
+   ВАРИАЦИЯ: Спокойный пастельный
+   мягкий фиолет + мята + персик, дружелюбно, много воздуха
+   ============================================================================= */
+[data-theme="pastel"] {
+  --accent:            #6D5CE6;
+  --accent-hover:      #5B4BD4;
+  --accent-light:      #8B7CF6;
+  --accent-tint-1:     #EAE6FB;
+  --accent-tint-2:     #DED7F8;
+  --accent-tint-3:     #CFC4F4;
+  --on-accent:         #FFFFFF;
+
+  --ink:               #221E3B;
+  --ink-2:             #4A4666;
+  --muted:             #8B87A3;
+  --muted-2:           #A7A3BE;
+  --faint:             #C4C1D6;
+  --disabled:          #D6D3E4;
+
+  --bg:                #FAF8FF;
+  --surface:           #FFFFFF;
+  --surface-2:         #F4F1FC;
+  --surface-3:         #EEEAF9;
+
+  --border:            #E8E3F5;
+  --border-2:          #F0ECFA;
+  --divider:           rgba(34, 30, 59, .08);
+
+  --success:           #4FB98A;
+  --success-bg:        #E4F5EE;
+  --success-tint:      #C3E9D7;
+  --danger:            #E5747C;
+  --danger-bg:         #FBEAEC;
+  --warning:           #E8A85C;
+  --warning-bg:        #FBF1E3;
+  --info:              #6D5CE6;
+  --info-bg:           #F1EEFC;
+
+  --data-1:            #8B7CF6;   /* purple */
+  --data-2:            #7FD8B0;   /* mint   */
+  --data-3:            #F6C77C;   /* peach  */
+  --data-4:            #F49AB0;   /* pink   */
+  --data-5:            #84C7F2;   /* sky    */
+  --data-6:            #DED7F8;
+
+  --shadow-xs:         0 1px 2px rgba(34, 30, 59, .05);
+  --shadow-sm:         0 1px 3px rgba(34, 30, 59, .08);
+  --shadow-md:         0 4px 24px rgba(34, 30, 59, .08), 0 1px 3px rgba(34, 30, 59, .05);
+  --shadow-lg:         0 16px 40px rgba(34, 30, 59, .12);
+  --shadow-xl:         0 24px 60px rgba(34, 30, 59, .16);
+  --shadow-cta:        0 6px 16px rgba(109, 92, 230, .32);
+  --focus-ring:        0 0 0 3px rgba(109, 92, 230, .16);
+}
+
+/* =============================================================================
+   ВАРИАЦИЯ: Мягкое стекло  (добавлено 09.10.2026)
+   Приём снят с референса rondesignlab-glass (~/.claude/design-refs), токены — наши:
+   акцент тот же #225AEA, цвет плиток — из нашей палитры данных.
+   Светлая холодная база, полупрозрачные карточки с размытием и бликом по краю,
+   широкие мягкие тени. Лучше всего — поверх фото или плавного градиента.
+   ============================================================================= */
+[data-theme="glass"] {
+  --accent:            #225AEA;
+  --accent-hover:      #1B49C4;
+  --accent-light:      #5B8CFF;
+  --accent-tint-1:     rgba(34, 90, 234, .10);
+  --accent-tint-2:     rgba(34, 90, 234, .16);
+  --accent-tint-3:     rgba(34, 90, 234, .24);
+  --on-accent:         #FFFFFF;
+
+  --ink:               #1C1D22;
+  --ink-2:             #3A3D45;
+  --muted:             #62656E;   /* темнее, чем в базе: текст лежит на стекле, нужно ≥4.5:1 */
+  --muted-2:           #9A9DA6;
+  --faint:             #B8BAC2;
+  --disabled:          #C8C8D0;
+
+  --bg:                #ECEDF1;
+  --surface:           rgba(255, 255, 255, .66);
+  --surface-2:         rgba(255, 255, 255, .48);
+  --surface-3:         rgba(255, 255, 255, .32);
+
+  --border:            rgba(255, 255, 255, .72);   /* край стекла — светлый блик */
+  --border-2:          rgba(14, 17, 22, .06);
+  --divider:           rgba(14, 17, 22, .07);
+
+  --success:           #16A34A;
+  --success-bg:        rgba(22, 163, 74, .12);
+  --success-tint:      rgba(22, 163, 74, .22);
+  --danger:            #E5484D;
+  --danger-bg:         rgba(229, 72, 77, .12);
+  --danger-tint:       rgba(229, 72, 77, .22);
+  --warning:           #E8A317;
+  --warning-bg:        rgba(232, 163, 23, .14);
+  --info:              #225AEA;
+  --info-bg:           rgba(34, 90, 234, .10);
+
+  /* данные — та же палитра, что в базе: из неё же светятся плитки */
+  --data-1:            #6355E6;
+  --data-2:            #7FBFF0;
+  --data-3:            #5B8CFF;
+  --data-4:            #8FE0BC;
+  --data-5:            #F6C77C;
+  --data-6:            #DCEEFB;
+
+  --shadow-xs:         0 1px 2px rgba(14, 17, 22, .04);
+  --shadow-sm:         0 2px 8px rgba(14, 17, 22, .05);
+  --shadow-md:         0 12px 32px -12px rgba(14, 17, 22, .14);
+  --shadow-lg:         0 24px 60px -20px rgba(14, 17, 22, .18);
+  --shadow-xl:         0 40px 90px -30px rgba(14, 17, 22, .24);
+  --shadow-cta:        0 6px 18px rgba(34, 90, 234, .28);
+  --focus-ring:        0 0 0 3px rgba(34, 90, 234, .16);
+}
+
+/* =============================================================================
+   ТОКЕНЫ, ОБЩИЕ ДЛЯ ВСЕХ ТЕМ
+   типографика · сетка · радиусы · длительности
+   ============================================================================= */
+:root {
+  /* --- Семейства --- */
+  --font-sans: 'Inter', -apple-system, system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* --- Шкала кегля (px) --- */
+  --fs-display-lg: 68px;
+  --fs-display:    46px;
+  --fs-h1:         38px;
+  --fs-h2:         32px;
+  --fs-h3:         28px;
+  --fs-title:      20px;
+  --fs-lg:         18px;
+  --fs-md:         17px;
+  --fs-base:       16px;   /* базовый размер текста, line-height 1.6 */
+  --fs-sm:         14px;
+  --fs-xs:         13px;
+  --fs-2xs:        12px;
+  --fs-3xs:        10px;
+
+  /* --- Насыщенность --- */
+  --fw-light:      300;   /* только крупные «тихие» числа (ds-num--quiet) */
+  --fw-regular:    400;
+  --fw-medium:     500;
+  --fw-semibold:   600;   /* доминирующий вес UI */
+  --fw-bold:       700;
+  --fw-extrabold:  800;
+  --fw-black:      900;   /* display / кинетика  */
+
+  /* --- Интерлиньяж --- */
+  --lh-tight:      0.95;  /* display              */
+  --lh-heading:    1.1;
+  --lh-snug:       1.3;
+  --lh-base:       1.6;   /* абзацы, до ~60 симв. */
+  --lh-loose:      1.65;
+
+  /* --- Трекинг --- */
+  --ls-tighter:    -0.04em;  /* крупные заголовки */
+  --ls-tight:      -0.025em;
+  --ls-snug:       -0.01em;
+  --ls-normal:     0;
+  --ls-eyebrow:    0.06em;    /* uppercase моно-лейблы */
+
+  /* --- Сетка отступов (шаг 4px) --- */
+  --space-1:       4px;
+  --space-2:       8px;
+  --space-3:       12px;
+  --space-4:       16px;
+  --space-5:       20px;
+  --space-6:       24px;   /* базовый ритм контента */
+  --space-8:       32px;
+  --space-10:      40px;
+  --space-12:      48px;
+  --space-16:      64px;
+  --space-24:      96px;
+
+  /* --- Радиусы --- */
+  --radius-xs:     6px;
+  --radius-sm:     8px;
+  --radius-md:     12px;   /* кнопки  */
+  --radius-lg:     16px;   /* карточки */
+  --radius-xl:     20px;
+  --radius-2xl:    28px;   /* плиты кейсов, стекло, светящиеся плитки */
+  --radius-pill:   999px;
+
+  /* --- Иконки --- */
+  --icon-stroke:   1.75;   /* outline, rounded caps, сетка 24×24 */
+
+  /* --- Движение: fade + 4–8px сдвиг, без bounce --- */
+  --ease:          cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:      120ms;   /* микро   */
+  --dur:           200ms;   /* база    */
+  --dur-slow:      400ms;   /* крупные */
+
+  /* --- Ручки темы (добавлено 09.10.2026). Значения по умолчанию = прежнее поведение,
+         поэтому проекты на базовой теме не меняются. Темы из themes/ их переопределяют. --- */
+  --font-display:      var(--font-sans);        /* шрифт крупных заголовков                 */
+  --fw-display:        var(--fw-extrabold);     /* ds-display                               */
+  --fw-heading:        var(--fw-bold);          /* ds-h2, ds-h3, ds-title                   */
+  --fw-h1:             var(--fw-extrabold);
+  --ls-display:        var(--ls-tighter);
+  --radius-btn:        var(--radius-md);
+  --radius-field:      var(--radius-md);
+  --radius-card:       var(--radius-lg);
+  --btn-primary-bg:    var(--accent);
+  --btn-primary-fg:    var(--on-accent);
+  --btn-primary-bg-hover: var(--accent-hover);
+  --btn-primary-border: transparent;
+  --btn-primary-shadow: var(--shadow-cta);
+  --card-shadow:       var(--shadow-sm);
+  --card-border:       var(--border);
+  --dur-hover:         300ms;                   /* одна длительность на все наведения (у rondesignlab — 0.3s на всё) */
+  --ease-hover:        ease;
+  --reveal-shift:      24px;                    /* насколько всплывает блок при появлении */
+  --reveal-dur:        600ms;
+  --num-font:          var(--font-mono);        /* шрифт крупных чисел                      */
+  --num-weight:        var(--fw-extrabold);
+
+  /* --- Стекло: работает в любой теме, сильнее всего в glass --- */
+  --glass-blur:    24px;
+  --glass-fill:    rgba(255, 255, 255, .62);
+  --glass-edge:    inset 0 1px 0 rgba(255, 255, 255, .85), inset 0 0 0 1px rgba(255, 255, 255, .35);
+
+  /* --- Скрытая работа (NDA): насколько размывать превью --- */
+  --locked-blur:   22px;
+}
+
+/* =============================================================================
+   ЭМОДЗИ И ИКОНКИ ПО ТЕМАМ (09.10.2026)
+   Свои эмодзи — emoji/emoji.js, свои иконки — icons/icons.js. Словарь общий
+   (data-emo="rocket" и data-icon="rocket" — одно и то же по смыслу).
+   Системные эмодзи Apple/Google в интерфейсе не используем: скрипт меняет их на наши.
+   Здесь только ручки; рисунки и палитра — в emoji/build.py и icons/build.py.
+   ============================================================================= */
+:root {
+  --icon-duo:      1;       /* подложка цветом акцента под линией иконки: 1 — есть, 0 — чистая линия */
+  --icon-offset:   1.2px;   /* сдвиг подложки, в единицах сетки 24 (0 — без сдвига)                */
+}
+
+/* Иконки: толщина и подложка под характер темы */
+[data-theme="studio"]     { --icon-stroke: 1.25; --icon-duo: 0; --icon-tile-bg: var(--data-1); }  /* как у референса: линия 1px в пастельном круге */
+[data-theme="blueprint"],
+[data-theme="showroom"],
+[data-theme="atelier"]    { --icon-stroke: 1.25; --icon-duo: 0; }
+[data-theme="telemetry"],
+[data-theme="calm-case"]  { --icon-stroke: 1.5;  --icon-duo: 0; --icon-offset: 0px; }
+[data-theme="pop"],
+[data-theme="poster"]     { --icon-stroke: 2.25; --icon-offset: 2px; --icon-tint: color-mix(in srgb, var(--accent) 40%, transparent); }
+[data-theme="arena"],
+[data-theme="hazard"]     { --icon-stroke: 2; --icon-offset: 1.6px; }
+[data-theme="glass"],
+[data-theme="glass-bloom"],
+[data-theme="liquid-aqua"] { --icon-offset: 0px; --icon-tint: color-mix(in srgb, var(--accent) 30%, transparent); }
+[data-theme="dark"],
+[data-theme="lime-dark"],
+[data-theme="ember-dark"],
+[data-theme="violet-ai"],
+[data-theme="neon-ops"]   { --icon-tint: color-mix(in srgb, var(--accent) 32%, transparent);
+                            --emo-d: #4A5367; --emo-d2: #343B4A; }  /* тёмные корпуса эмодзи чуть светлее фона */
+
+/* Эмодзи в монохроме: перекрашиваются от акцента темы. Включено там, где многоцветье
+   запрещено характером темы; вручную — data-emo-mode="mono" на любом контейнере. */
+[data-emo-mode="mono"],
+[data-theme="blueprint"], [data-theme="telemetry"], [data-theme="calm-case"], [data-theme="showroom"], [data-theme="poster"],
+[data-theme="atelier"], [data-theme="acid-light"], [data-theme="lime-dark"], [data-theme="hazard"], [data-theme="neon-ops"] {
+  --emo-y:  color-mix(in srgb, var(--accent) 22%, var(--surface));
+  --emo-y2: color-mix(in srgb, var(--accent) 48%, var(--surface));
+  --emo-w:  var(--surface);
+  --emo-w2: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  --emo-m:  color-mix(in srgb, var(--accent) 16%, var(--surface));
+  --emo-m2: color-mix(in srgb, var(--accent) 42%, var(--surface));
+  --emo-c:  color-mix(in srgb, var(--accent) 32%, var(--surface));
+  --emo-r: var(--accent); --emo-o: var(--accent); --emo-g: var(--accent); --emo-b: var(--accent); --emo-p: var(--accent); --emo-n: var(--accent);
+  --emo-r2: var(--accent-hover); --emo-o2: var(--accent-hover); --emo-g2: var(--accent-hover);
+  --emo-b2: var(--accent-hover); --emo-p2: var(--accent-hover); --emo-n2: var(--accent-hover);
+  --emo-d:  color-mix(in srgb, var(--accent) 45%, var(--ink));
+  --emo-d2: color-mix(in srgb, var(--accent) 30%, var(--ink));
+  --emo-k:  var(--ink);
+  --emo-pk: transparent;
+}
+/* Вернуть цвет внутри монохромной темы: data-emo-mode="color" (переменные сбрасываются к палитре набора) */
+[data-emo-mode="color"] {
+  --emo-y: initial; --emo-y2: initial; --emo-w: initial; --emo-w2: initial; --emo-m: initial; --emo-m2: initial; --emo-c: initial;
+  --emo-r: initial; --emo-o: initial; --emo-g: initial; --emo-b: initial; --emo-p: initial; --emo-n: initial;
+  --emo-r2: initial; --emo-o2: initial; --emo-g2: initial; --emo-b2: initial; --emo-p2: initial; --emo-n2: initial;
+  --emo-d: initial; --emo-d2: initial; --emo-k: initial; --emo-pk: initial;
+}
+
+/* --- Базовые применения (по желанию) --- */
+::selection { background: var(--accent-tint-1); color: var(--ink); }
