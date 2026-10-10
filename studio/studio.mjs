@@ -175,7 +175,7 @@ function nav(file, hasCta) {
   return `
 <header class="st-nav">
   <div class="st-nav__in">
-    <a class="st-logo" href="index.html" aria-label="а3 — на главную">а3</a>
+    <a class="st-logo" href="index.html" aria-label="Foksten — на главную">foksten</a>
     <nav class="st-nav__links" aria-label="Разделы">
       ${NAV.map(([h, l]) => a(h, l)).join('\n      ')}
       ${a('kontakty.html', 'Контакты', '<span class="st-live" aria-hidden="true"></span>')}
@@ -238,9 +238,9 @@ function footer(hasCta) {
         <div><h4>Связь</h4><!--IF:telegram--><a href="{{TELEGRAM_URL}}">Telegram</a><!--/IF:telegram--><!--IF:whatsapp--><a href="{{WHATSAPP_URL}}">WhatsApp</a><!--/IF:whatsapp--><!--IF:phone--><a href="tel:{{PHONE_HREF}}">{{PHONE}}</a><!--/IF:phone--><!--IF:email--><a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><!--/IF:email--><a href="kontakty.html">Все контакты</a><a href="politika.html">Политика данных</a></div>
       </div>
     </div>
-    <div class="st-foot__mark" aria-hidden="true">а3</div>
+    <div class="st-foot__mark" aria-hidden="true">foksten</div>
     <div class="st-foot__bottom">
-      <span>© 2026 а3</span>
+      <span>© 2026 Foksten</span>
       <span>Работаем по договору · Маркировка рекламы (erid)</span>
       <span class="st-foot__live"><span class="st-live" aria-hidden="true"></span>Принимаем заявки</span>
     </div>
@@ -254,7 +254,7 @@ function presence(hasCta) {
   return `
 <aside class="st-presence" aria-label="Связаться" hidden>
   <button class="st-presence__x" type="button" aria-label="Скрыть">${icon('close')}</button>
-  <span class="st-presence__ava" aria-hidden="true">а3</span>
+  <span class="st-presence__ava" aria-hidden="true">F</span>
   <p><b>Ответим сегодня.</b> Разбор задачи — бесплатно.</p>
   <a class="st-btn st-btn--black st-btn--sm" href="${hasCta ? '#cta' : 'kontakty.html#cta'}">Написать ${arrow('up-right')}</a>
 </aside>`;
@@ -272,7 +272,7 @@ function headFrom(base) {
   return h.trim() + `
 <meta name="robots" content="noindex, nofollow">
 <script>document.documentElement.classList.add('st-js')</script>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23000'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3E%D0%B03%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23000'/%3E%3Ctext x='16' y='22.5' font-family='Arial' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/wix-madefor-display-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="studio.css">
 <link rel="stylesheet" href="../skins.css">`;
@@ -361,7 +361,7 @@ function bubbleFor(head) {
 }
 export function bubble(text) {
   return `
-    <div class="st-bubble-row" data-reveal><p class="st-bubble" data-typing><span class="st-bubble__ava" aria-hidden="true">а3</span><span class="st-bubble__t">${two(text)}</span></p></div>`;
+    <div class="st-bubble-row" data-reveal><p class="st-bubble" data-typing><span class="st-bubble__ava" aria-hidden="true">F</span><span class="st-bubble__t">${two(text)}</span></p></div>`;
 }
 
 function transformPage(file, base) {
@@ -413,7 +413,7 @@ ${s.body}
     title: d.cta?.h2 ? withPill(d.cta.h2.replace(/\.$/, ''), pill('chat', 'peach')) : `Давайте ${pill('chat', 'peach')} обсудим`,
     lead: d.cta?.p || 'Разберём задачу <b>бесплатно</b> и предложим решение <b>с цифрами и сроками</b> — в течение дня.',
     fields: d.cta?.fields || GENERIC_FIELDS,
-    subject: d.cta?.subject || `Заявка с сайта а3 — ${strip(d.h1)}`,
+    subject: d.cta?.subject || `Заявка с сайта Foksten — ${strip(d.h1)}`,
   }) : '';
   return { main, final, hasCta };
 }

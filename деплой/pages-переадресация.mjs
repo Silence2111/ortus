@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* GitHub Pages для а3 — только переадресация на прод.
+/* GitHub Pages для Foksten — только переадресация на прод.
  *
  * Сайт живёт на российской коробке (деплой/выкатить.sh): зарубежный хостинг
  * ТСПУ обрывает для посетителей из РФ на ~16 КБ. А по адресу
@@ -26,12 +26,12 @@ const stub = (path) => {
   const url = origin + '/' + (path === 'index.html' ? '' : path);
   return `<!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
-<title>а3 — сайт переехал</title>
+<title>Foksten — сайт переехал</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="${url}">
 <meta http-equiv="refresh" content="0; url=${url}">
 <script>location.replace(${JSON.stringify(url)} + location.hash)</script>
-</head><body><p>Сайт а3 переехал: <a href="${url}">${url}</a></p></body></html>
+</head><body><p>Сайт Foksten переехал: <a href="${url}">${url}</a></p></body></html>
 `;
 };
 
