@@ -8,18 +8,33 @@
     { id: 'dark',      имя: 'Тёмный',    шрифт: 'Montserrat:wght@400;500;600;700' },
     { id: 'designpro', имя: 'DesignPro', шрифт: 'Inter:wght@400;500;600;700' },
     // из дизайн-системы (дизайн/system/themes): агентский, стройка, витрина результатов
-    { id: 'studio',    имя: 'Студия',    шрифт: 'Urbanist:wght@400;500;600;700' },
+    { id: 'studio',    имя: 'Студия' },   // своя вёрстка в studio/, см. studio/studio.mjs
     { id: 'hazard',    имя: 'Стройка',   шрифт: 'Archivo:wght@400;500;600;700;800;900' },
     { id: 'calm',      имя: 'Спокойный', шрифт: 'Manrope:wght@400;500;600&family=Inter:wght@400;500' }
   ];
   var КЛЮЧ = 'a3-skin';
+  // «Студия» — не палитра, а своя вёрстка: её страницы лежат в studio/ под
+  // теми же именами. Выбрать её — значит перейти на ту же страницу там,
+  // выбрать другой вариант на странице «Студии» — вернуться обратно.
+  var ВСТУДИИ = document.documentElement.hasAttribute('data-studio');
+  var ФАЙЛ = location.pathname.split('/').pop() || 'index.html';
 
+  function изАдреса() {
+    var id = (location.search.match(/[?&]skin=([a-z]+)/) || [])[1];
+    return id && ВАРИАНТЫ.some(function (в) { return в.id === id; }) ? id : '';
+  }
   function прочитать() {
-    // ?skin=telescope имеет приоритет: так вариант можно показать ссылкой,
+    // ?skin=system имеет приоритет: так вариант можно показать ссылкой,
     // не объясняя, где нажать переключатель.
-    var изАдреса = (location.search.match(/[?&]skin=([a-z]+)/) || [])[1];
-    if (изАдреса && ВАРИАНТЫ.some(function (в) { return в.id === изАдреса; })) return изАдреса;
+    if (изАдреса()) return изАдреса();
+    if (ВСТУДИИ) return 'studio';
     try { return localStorage.getItem(КЛЮЧ) || 'aurora'; } catch (e) { return 'aurora'; }
+  }
+  function перейти(id) {
+    try { localStorage.setItem(КЛЮЧ, id); } catch (e) {}
+    if (id === 'studio' && !ВСТУДИИ) { location.replace('studio/' + ФАЙЛ + location.hash); return true; }
+    if (id !== 'studio' && ВСТУДИИ) { location.href = '../' + ФАЙЛ + '?skin=' + id + location.hash; return true; }
+    return false;
   }
   // Шрифт макета тянем только когда его вариант выбрали: грузить три
   // семейства сразу ради переключателя не нужно.
@@ -34,6 +49,8 @@
   }
 
   function применить(id) {
+    if (перейти(id)) return;
+    if (ВСТУДИИ) return;   // у «Студии» свои стили, атрибут ей не нужен
     // aurora — базовый слой страниц, ему атрибут не нужен
     if (id === 'aurora') document.documentElement.removeAttribute('data-skin');
     else document.documentElement.setAttribute('data-skin', id);

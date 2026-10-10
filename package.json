@@ -5,7 +5,8 @@
   "scripts": {
     "build": "node build.mjs",
     "check": "node build.mjs --check",
-    "test": "node --test тесты/витрина.test.mjs",
+    "test": "node --test тесты/витрина.test.mjs тесты/студия.test.mjs",
+    "stand": "SITE_ORIGIN=https://demo.invalid SITE_SKINS=1 node build.mjs && echo 'Открыть: http://localhost:8080/studio/' && python3 -m http.server 8080 -d dist",
     "demo": "SITE_ORIGIN=https://demo.invalid node build.mjs && echo 'Открыть: http://localhost:8080' && python3 -m http.server 8080 -d dist"
   }
 }

@@ -12,7 +12,7 @@
  *   aurora   — прежний: ирис → мята, светлый фон, пятна за героем, градиенты
  *   system   — личная дизайн-система: синий #225AEA, плоско, без градиентов
  *   dark     — палитра макета дизайн-версии/ortus-dark: чёрный, Montserrat, пурпур
- *   studio   — тема studio из дизайн-системы: агентский чёрно-белый, пастель, свои эмодзи
+ *   studio   — своя вёрстка по референсу rondesignlab, страницы в studio/ (не палитра)
  *   hazard   — тема hazard: «Стройка», сигнальный жёлтый под оффер ИЖС
  *   calm     — тема calm-case: «Спокойный», витрина результатов
  *   designpro— палитра макетов designpro-hero и ortus-designpro: чёрный, Inter,
@@ -112,60 +112,9 @@
 :root[data-skin="designpro"] .step,:root[data-skin="designpro"] .faq details{
   border:1px solid var(--line);box-shadow:none}
 
-/* ── studio: тема studio из дизайн-системы (агентский стиль rondesignlab) ──
-   Чёрно-белый интерфейс, цвет приносят пастельные круги, контурная кнопка
-   заливается чёрным, без теней, крупные радиусы. Свои эмодзи в конце кнопок
-   и у сроков — как у референса; рисунки — дизайн/system/emoji (img/emo/). */
-:root[data-skin="studio"]{
-  --bg:#FAFAFA; --surface:#FFFFFF; --surface-2:#F0F0F0;
-  --dark:#000000; --dark-2:#111111;
-  --ink:#000000; --ink-2:#2B2B2B; --muted:#5F5F5F; --faint:#666666;
-  --line:rgba(0,0,0,.10); --line-soft:#F0F0F0;
-  --accent:#000000; --accent-2:#000000; --accent-3:#000000; --accent-ink:#000000;
-  --on-dark:#FAFAFA; --on-dark-muted:#A8A8A8;
-  --nav-bg:rgba(250,250,250,.84);
-  --tile:#D7EDA9;
-  --shadow:none; --shadow-lg:0 20px 60px rgba(0,0,0,.08); --glow:none;
-  --sq:30px; --plate:46px;
-  --au1:transparent; --au2:transparent; --au3:transparent;
-  --font:'Urbanist','Inter',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-}
-:root[data-skin="studio"] body{font-family:var(--font);background:var(--bg);font-size:17px}
-:root[data-skin="studio"] h1,:root[data-skin="studio"] h2,
-:root[data-skin="studio"] h3,:root[data-skin="studio"] .brand{font-family:var(--font);font-weight:600;letter-spacing:-.035em}
-:root[data-skin="studio"] .aura{display:none}
-/* выделенные слова — жёлтая пилюля-маркер вместо градиента */
-:root[data-skin="studio"] .grad-txt{color:#000;background:#FFE99D;-webkit-background-clip:border-box;background-clip:border-box;
-  border-radius:999px;padding:0 .18em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-:root[data-skin="studio"] .btn{border-radius:999px}
-:root[data-skin="studio"] .btn:hover{box-shadow:none}
-:root[data-skin="studio"] .btn.accent{background:transparent;color:#000;box-shadow:inset 0 0 0 1px #000}
-:root[data-skin="studio"] .btn.accent:hover{background:#000;color:#fff;transform:none}
-:root[data-skin="studio"] .btn.ghost{background:#fff;color:#000;padding:14px 24px;opacity:1}
-:root[data-skin="studio"] .btn.ghost:hover{background:#000;color:#fff;opacity:1}
-:root[data-skin="studio"] .card,:root[data-skin="studio"] .tier,
-:root[data-skin="studio"] .step,:root[data-skin="studio"] .faq details{border:0;box-shadow:none}
-:root[data-skin="studio"] .card:hover{box-shadow:none}
-/* тонкая иконка в пастельном круге — главный приём референса с иконками */
-:root[data-skin="studio"] .ico{border-radius:50%;border:0;color:#000;background:var(--tile)}
-:root[data-skin="studio"] .ico svg{stroke-width:1.25}
-:root[data-skin="studio"] .card:nth-child(4n+2) .ico,:root[data-skin="studio"] .step:nth-child(4n+2) .ico{background:#FFE99D}
-:root[data-skin="studio"] .card:nth-child(4n+3) .ico,:root[data-skin="studio"] .step:nth-child(4n+3) .ico{background:#FFB39E}
-:root[data-skin="studio"] .card:nth-child(4n+4) .ico,:root[data-skin="studio"] .step:nth-child(4n+4) .ico{background:#CFE3FF}
-/* свои эмодзи: 👋 у «написать», 👉 у «смотреть работы», 🕔 у сроков */
-:root[data-skin="studio"] .nav-cta .btn::after,
-:root[data-skin="studio"] .lead-form .btn[type="submit"]::after,
-:root[data-skin="studio"] .hero-cta .btn.ghost::after{content:"";width:1.15em;height:1.15em;flex:none;
-  background:url(img/emo/wave.svg) center/contain no-repeat;transform-origin:70% 85%}
-:root[data-skin="studio"] .hero-cta .btn.ghost::after{background-image:url(img/emo/point-right.svg);transition:transform .3s ease}
-:root[data-skin="studio"] .hero-cta .btn.ghost svg{display:none}
-:root[data-skin="studio"] .hero-cta .btn.ghost:hover::after{transform:translateX(3px)}
-:root[data-skin="studio"] .nav-cta .btn:hover::after,
-:root[data-skin="studio"] .lead-form .btn[type="submit"]:hover::after{animation:skin-wave 1s ease-in-out}
-:root[data-skin="studio"] .when::before{content:"";display:inline-block;width:1.15em;height:1.15em;vertical-align:-.22em;margin-right:.35em;
-  background:url(img/emo/clock.svg) center/contain no-repeat}
-@keyframes skin-wave{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-8deg)}45%{transform:rotate(14deg)}60%{transform:rotate(-4deg)}75%{transform:rotate(9deg)}}
-@media (prefers-reduced-motion:reduce){:root[data-skin="studio"] .btn::after{animation:none!important;transition:none!important}}
+/* ── studio: не палитра, а своя вёрстка ─────────────────────────────────
+   Страницы «Студии» собираются в dist/studio/ (studio/studio.mjs) со своими
+   стилями; переключатель переводит на них. Здесь только виджет. */
 
 /* ── hazard: тема hazard из дизайн-системы — «Стройка» ─────────────────────
    Сигнальный жёлтый на тёплом сером, чёрные плашки, жирный Archivo, малые

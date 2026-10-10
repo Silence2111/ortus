@@ -23,13 +23,16 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFileSync, rmSync } from 'node:fs';
 import { join, dirname, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { studioPages, STUDIO_ASSETS } from './studio/studio.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const DIST = join(ROOT, 'dist');
+// SITE_DIST — только для тестов: собрать во временную папку, не трогая dist/
+const DIST = process.env.SITE_DIST || join(ROOT, 'dist');
 
 /* Из сборки исключено служебное: ПРОДУКТ — рабочие документы прогона, они и в
- * robots.txt закрыты; остальное — сама сборка и её тесты. */
-const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', '.DS_Store',
+ * robots.txt закрыты; остальное — сама сборка и её тесты. studio — исходники
+ * варианта «Студия», он собирается отдельно и только вместе с переключателем. */
+const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', '.DS_Store',
                       'build.mjs', 'site.config.json', 'README.md', '.gitignore']);
 
 /* Подстановка идёт только в текст. Картинки копируются байт в байт. */
@@ -234,6 +237,22 @@ function main() {
     }
   }
 
+  /* «Студия» — отдельный набор страниц в dist/studio/. Только для стенда:
+   * без переключателя на неё не попасть, поэтому без него она и не собирается. */
+  let studio = 0;
+  if (flags.skins) {
+    for (const { rel, text } of studioPages(ROOT)) {
+      const out = render(text, vars, flags);
+      problems.push(...auditOutput(rel, out));
+      mkdirSync(dirname(join(DIST, rel)), { recursive: true });
+      writeFileSync(join(DIST, rel), out);
+      studio++;
+    }
+    for (const a of STUDIO_ASSETS) {
+      writeFileSync(join(DIST, 'studio', a), render(readFileSync(join(ROOT, 'studio', a), 'utf8'), vars, flags));
+    }
+  }
+
   if (problems.length) {
     console.error('\nСобрано, но результат публиковать нельзя:\n');
     for (const p of problems) console.error('  • ' + p);
@@ -242,6 +261,7 @@ function main() {
   }
 
   console.log(`dist/ готов: ${text} текстовых файлов, ${bin} файлов без изменений.`);
+  if (studio) console.log(`Вариант «Студия» — страниц в dist/studio/: ${studio}.`);
   console.log(`Домен: ${cfg.origin}`);
   if (!flags.channels) console.log('Прямых контактов нет — на странице контактов только форма.');
   if (!cfg.metrikaId) console.log('Метрика выключена.');

@@ -1,0 +1,24 @@
+<!--ST:final title="Оставьте [[doc:sun]] заявку" lead="Разберём задачу и предложим решение **с цифрами** — в течение одного дня." subject="Новая заявка с сайта — Контакты"-->
+
+<section class="st-hero st-hero--inner">
+  <div class="st-wrap">
+    <div class="st-crumbs"><a class="st-tile st-tile--sm" href="index.html"><i data-i="arrow-left" class="st-i--arrow"></i>Главная</a><span>Контакты</span></div>
+    <h1 class="st-h1">Расскажите [[chat:lime]] о задаче</h1>
+    <p class="st-lead st-hero__lead">Ответим <b>в течение дня</b>. Выберите удобный способ связи или оставьте заявку — <b>форма ниже</b>.</p>
+    <div class="st-actions"><a class="st-btn st-btn--line st-btn--lg" href="#cta">Оставить заявку</a></div>
+  </div>
+</section>
+
+<section class="st-sec" style="padding-top:clamp(48px,5vw,80px)">
+  <div class="st-wrap">
+<!--IF:channels-->    <div class="st-cards st-cards--2">
+<!--IF:telegram-->      <a class="st-card st-card--link" href="{{TELEGRAM_URL}}" data-reveal><span class="st-ico"><i data-i="send"></i></span><h3>Telegram</h3><p><b>{{TELEGRAM_HANDLE}}</b> — самый быстрый способ связи.</p></a>
+<!--/IF:telegram--><!--IF:whatsapp-->      <a class="st-card st-card--link" href="{{WHATSAPP_URL}}" data-reveal><span class="st-ico"><i data-i="chat"></i></span><h3>WhatsApp</h3><p>Напишите нам в мессенджере.</p></a>
+<!--/IF:whatsapp--><!--IF:phone-->      <a class="st-card st-card--link" href="tel:{{PHONE_HREF}}" data-reveal><span class="st-ico"><i data-i="call"></i></span><h3>Телефон</h3><p><b>{{PHONE}}</b> — с 10 до 19 по Москве.</p></a>
+<!--/IF:phone--><!--IF:email-->      <a class="st-card st-card--link" href="mailto:{{CONTACT_EMAIL}}" data-reveal><span class="st-ico"><i data-i="mail"></i></span><h3>Email</h3><p><b>{{CONTACT_EMAIL}}</b> — для писем и документов.</p></a>
+<!--/IF:email-->    </div>
+<!--/IF:channels--><!--IFNOT:channels-->    <!--ST:bubble-->Прямых контактов пока не публикуем — **единственный рабочий способ связи это форма** ниже. Ответ придёт на телефон или в Telegram, который вы укажете.<!--/ST:bubble-->
+<!--/IFNOT:channels--><!--IF:legal-->    <p class="st-note">{{LEGAL}}</p>
+<!--/IF:legal-->
+  </div>
+</section>
