@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Foksten — агентство одной командой · вариант «Стекло»</title>
+<meta name="description" content="Сайт, реклама, ИИ и 1С одной командой: ведущий на связи, смета за день, оплата по этапам.">
+<link rel="stylesheet" href="../_fonts/fonts.css">
+<link rel="stylesheet" href="../_system/tokens.css">
+<link rel="stylesheet" href="../_system/components.css">
+<link rel="stylesheet" href="style.css">
+<script src="../_system/icons.js" defer></script>
+<script src="../_system/motion.js" defer></script>
+<script src="../_stand.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="capsule">
+    <a class="logo" href="index.html" aria-label="Foksten — на главную">foksten</a>
+    <nav aria-label="Разделы"><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#plan">Этапы</a><a href="#faq">Вопросы</a></nav>
+    <a class="btn btn--dark btn--sm" href="#start">Обсудить проект</a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false"><span data-icon="menu"></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden role="dialog" aria-label="Меню">
+  <div class="menu__top"><a class="logo" href="index.html">foksten</a><button class="burger" style="display:inline-grid" type="button" data-close aria-label="Закрыть меню"><span data-icon="close"></span></button></div>
+  <a href="#services">Услуги</a><a href="#works">Работы</a><a href="#plan">Этапы</a><a href="#faq">Вопросы</a><a href="marketplace.html">Реклама на WB и Ozon</a>
+  <a class="btn btn--dark" href="#start">Обсудить проект</a>
+</div>
+
+<main>
+  <!-- ============ первый экран ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="tag"><i aria-hidden="true"></i>Ответ в день заявки</span>
+      <h1 class="h1">Одна команда на сайт,<br>рекламу, ИИ и 1С</h1>
+      <p class="lead">Ведущий на связи, смета за день, оплата по этапам. Вместо пяти подрядчиков — один договор.</p>
+      <div class="hero__cta">
+        <a class="btn btn--dark" href="#start">Обсудить проект</a>
+        <a class="circle" href="#works" aria-label="Смотреть работы"><span data-icon="arrow-down"></span></a>
+      </div>
+
+      <div class="bento" aria-label="Как с нами работать">
+        <div class="b b--lead glow g-blue">
+          <div class="b__k"><span>Разбор задачи</span><span>пример переписки</span></div>
+          <div class="presence"><span class="ava">F</span><span><b>Ведущий проекта</b><small>на связи сегодня</small></span></div>
+          <div class="bubble bubble--me">Нужен сайт и реклама на Ozon. Сколько и когда?</div>
+          <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div class="bubble">Сегодня пришлю состав работ, вилку цены и сроки по этапам. Разбор бесплатный.</div>
+        </div>
+        <div class="b b--quote glass">
+          <div class="b__k"><span>Одним договором</span><span>12 направлений</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:auto">
+            <span class="plaque"><span data-icon="laptop"></span></span><span class="plaque"><span data-icon="cart"></span></span><span class="plaque"><span data-icon="send"></span></span><span class="plaque"><span data-icon="sparkles"></span></span><span class="plaque"><span data-icon="database"></span></span><span class="plaque"><span data-icon="search"></span></span>
+          </div>
+          <p class="h3" style="font-weight:400">Сайт · реклама · ИИ · 1С</p>
+        </div>
+        <div class="b b--num glass">
+          <div class="b__k"><span>От заявки до сметы</span></div>
+          <div class="thin">1<sup>день</sup></div>
+        </div>
+        <div class="b b--steps glass">
+          <div class="b__k"><span>Оплата по этапам</span><span>пример проекта</span></div>
+          <p class="h3" style="font-weight:400">Платите за принятый этап, а не всё вперёд</p>
+          <div class="track"><span class="is-done">Разбор</span><span class="is-done">Смета</span><span class="is-now">Работа</span><span>Запуск</span></div>
+        </div>
+        <div class="b b--mark glow g-mint">
+          <div class="b__k"><span>Маркировка рекламы</span><span>на нас</span></div>
+          <ul class="checks"><li>Токен erid</li><li>Отчёт в ЕРИР</li><li>Сбор 3%</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ кто вы + направления ============ -->
+  <section class="sec" id="services">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <h2 class="h2">Двенадцать направлений.<br>Скажите, кто вы</h2>
+        <div class="seg" role="group" aria-label="Кто вы">
+          <button type="button" data-seg="mp" aria-pressed="false">Продаю на WB и Ozon</button>
+          <button type="button" data-seg="local" aria-pressed="false">Локальный бизнес</button>
+          <button type="button" data-seg="expert" aria-pressed="false">Эксперт или школа</button>
+          <button type="button" data-seg="company" aria-pressed="false">Компания</button>
+        </div>
+        <p class="seg-note" id="seg-note" aria-live="polite">Нажмите на свой вариант — подсветим, с чего начать. Три направления ведём сами и глубже всего.</p>
+      </div>
+      <div class="svc" data-reveal-stagger="40">
+        <a class="glow g-blue" href="marketplace.html" data-seg="mp"><span class="chip-led">ведём сами</span><span class="plaque"><span data-icon="cart"></span></span><h3 class="h3">Реклама на WB и Ozon</h3><p>Кампании, ставки, карточки. Отчёт по ДРР каждую неделю.</p><span class="price">от 45 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glow g-violet" href="#start" data-seg="expert"><span class="chip-led">ведём сами</span><span class="plaque"><span data-icon="send"></span></span><h3 class="h3">Telegram Ads</h3><p>Реклама и посевы. Маркировка erid и сбор — на нас.</p><span class="price">от 50 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glow g-peach" href="#start" data-seg="company"><span class="chip-led">ведём сами</span><span class="plaque"><span data-icon="sparkles"></span></span><h3 class="h3">ИИ и автоматизация</h3><p>Боты по вашей базе знаний, связка с 1С и CRM.</p><span class="price">от 60 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="local"><span class="plaque"><span data-icon="laptop"></span></span><h3 class="h3">Сайты и лендинги</h3><p>Продающие сайты и магазины — на заявки.</p><span class="price">от 40 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="local"><span class="plaque"><span data-icon="search"></span></span><h3 class="h3">SEO и GEO</h3><p>Трафик из поиска и нейросетей.</p><span class="price">от 40 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="local"><span class="plaque"><span data-icon="target"></span></span><h3 class="h3">Директ и таргет</h3><p>Яндекс Директ и VK с аналитикой по заявкам.</p><span class="price">от 40 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="expert"><span class="plaque"><span data-icon="chat"></span></span><h3 class="h3">SMM и контент</h3><p>Соцсети, UGC и Reels, которые продают.</p><span class="price">от 45 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="expert"><span class="plaque"><span data-icon="play"></span></span><h3 class="h3">Продюсирование</h3><p>Личный бренд и онлайн-школа под ключ.</p><span class="price">от 100 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="mp"><span class="plaque"><span data-icon="palette"></span></span><h3 class="h3">Дизайн и брендинг</h3><p>Логотип, фирстиль, карточки, интерфейсы.</p><span class="price">от 30 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="mp company"><span class="plaque"><span data-icon="database"></span></span><h3 class="h3">Внедрение 1С</h3><p>Связка с сайтом, CRM и маркетплейсами.</p><span class="price">от 50 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="company"><span class="plaque"><span data-icon="phone"></span></span><h3 class="h3">Приложения и MVP</h3><p>Мобильные и веб-приложения, CRM.</p><span class="price">от 300 000 ₽ <span data-icon="arrow-up-right"></span></span></a>
+        <a class="glass" href="#start" data-seg="company"><span class="plaque"><span data-icon="server"></span></span><h3 class="h3">IT-аутсорс</h3><p>Серверы, почта, телефония без штата.</p><span class="price">от 15 000 ₽/мес <span data-icon="arrow-up-right"></span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ работы ============ -->
+  <section class="sec" id="works" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <h2 class="h2">Работы</h2>
+        <p class="lead">Свои продукты и проекты клиентов. Цифры клиентов публикуем только с их согласия.</p>
+      </div>
+      <div class="reel" tabindex="0" aria-label="Работы, листаются вбок">
+        <article class="work glow g-blue">
+          <div class="win"><div class="win__bar"><i></i><i></i><i></i><span>а3статс · кабинет продавца</span></div><img src="../img/a3stats.jpg" alt="Сводка а3статс: оборот, прибыль, ДРР и структура выручки" loading="lazy" width="1200" height="806"></div>
+          <div class="work__foot"><div><h3 class="h3">а3статс — один экран вместо десяти вкладок</h3><p>Кабинет продавца WB, Ozon и Я.Маркета. Интерфейс и расчёты — наши. Сейчас продукт называется «Мерпи».</p></div>
+            <div class="work__nums"><div><b>3</b><span>площадки</span></div><div><b>1 400+</b><span>автотестов</span></div><div><b>60</b><span>дней истории</span></div></div></div>
+        </article>
+        <article class="work glow g-rose">
+          <div class="win"><div class="win__bar"><i></i><i></i><i></i><span>ЮаньМост</span></div><img src="../img/yuanmost.jpg" alt="Лендинг ЮаньМост с калькулятором платежа в Китай" loading="lazy" width="1200" height="806"></div>
+          <div class="work__foot"><div><h3 class="h3">ЮаньМост — расчёт до заявки</h3><p>Сумма инвойса в рублях на первом экране: заявка приходит уже с цифрой.</p></div></div>
+        </article>
+        <article class="work glow g-violet">
+          <div class="win"><div class="win__bar"><i></i><i></i><i></i><span>КубоЛаб</span></div><img src="../img/kubolab.jpg" alt="Лендинг КубоЛаб: курс Roblox для детей" loading="lazy" width="1200" height="806"></div>
+          <div class="work__foot"><div><h3 class="h3">КубоЛаб — запись на пробный урок</h3><p>Курс по Roblox для детей 8–16 лет: программа, цены и запись без предоплаты.</p></div></div>
+        </article>
+        <article class="work glow g-sky">
+          <div class="win"><div class="win__bar"><i></i><i></i><i></i><span>Traffic Suite</span></div><img src="../img/traffic-suite.jpg" alt="Дашборд Traffic Suite: аккаунты, кампании, задачи" loading="lazy" width="1200" height="806"></div>
+          <div class="work__foot"><div><h3 class="h3">Traffic Suite — витрина плюс кабинет</h3><p>Лендинг сервиса и рабочий дашборд. Одна система, два слоя.</p></div></div>
+        </article>
+      </div>
+      <div class="reel-nav"><button class="circle" type="button" data-reel="-1" aria-label="Предыдущая работа"><span data-icon="arrow-left"></span></button><button class="circle" type="button" data-reel="1" aria-label="Следующая работа"><span data-icon="arrow-right"></span></button></div>
+    </div>
+  </section>
+
+  <!-- ============ этапы стопкой ============ -->
+  <section class="sec" id="plan" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><h2 class="h2">Четыре этапа.<br>Каждый вы принимаете</h2></div>
+      <div class="stack">
+        <div class="card glass" style="--i:0"><span class="n">01</span><div><h3 class="h3">Разбор задачи</h3><p>Созвон или переписка: что продаёте, кому, что уже пробовали. Бесплатно — до любых договорённостей.</p></div><span class="when">в день заявки</span></div>
+        <div class="card glass" style="--i:1"><span class="n">02</span><div><h3 class="h3">Смета и план</h3><p>Состав работ, вилка цены и сроки по этапам. Если задача не наша — так и скажем.</p></div><span class="when">1–2 дня</span></div>
+        <div class="card glass" style="--i:2"><span class="n">03</span><div><h3 class="h3">Договор и работа</h3><p>Этапы и критерии приёмки. Показываем промежуточный результат, а не только финал.</p></div><span class="when">по плану из сметы</span></div>
+        <div class="card glass" style="--i:3"><span class="n">04</span><div><h3 class="h3">Запуск и отчёт</h3><p>Доступы и инструкции. Для рекламы и SEO — отчёт раз в месяц: заявки, расход, цена заявки.</p></div><span class="when">после приёмки</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ доверие ============ -->
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><h2 class="h2">Отзывов пока нет —<br>есть договор</h2><p class="lead">Мы молодое агентство и не рисуем звёзды. Доверие держим условиями, которые проверяются.</p></div>
+      <div class="trust" data-reveal-stagger>
+        <div class="glass"><span class="plaque"><span data-icon="doc"></span></span><h3 class="h3">Договор и приёмка</h3><p>Без договора не начинаем.</p></div>
+        <div class="glass"><span class="plaque"><span data-icon="wallet"></span></span><h3 class="h3">Оплата по этапам</h3><p>За принятое, а не всё вперёд.</p></div>
+        <div class="glass"><span class="plaque"><span data-icon="shield"></span></span><h3 class="h3">Маркировка — на нас</h3><p>erid, ЕРИР и сбор 3%.</p></div>
+        <div class="glass"><span class="plaque"><span data-icon="key"></span></span><h3 class="h3">Доступы — ваши</h3><p>Кабинеты, домены и данные остаются у вас.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ вопросы ============ -->
+  <section class="sec" id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><h2 class="h2">Частые вопросы</h2></div>
+      <div class="faq" data-reveal>
+        <details class="glass"><summary>Почему цены «от», а не точные?</summary><p>Сайт на 5 экранов и магазин на 2 000 товаров — оба «сайт». Нижняя граница показывает минимум, точную вилку называем после бесплатного разбора.</p></details>
+        <details class="glass"><summary>Как платить?</summary><p>По этапам из договора: за принятый этап. Ведение — помесячно, остановиться можно в любой месяц.</p></details>
+        <details class="glass"><summary>Работаете не из Москвы?</summary><p>Онлайн со всей России: созвоны, отчёты и доступы — по расписанию.</p></details>
+        <details class="glass"><summary>Кто будет делать мой проект?</summary><p>Ведущий проекта на связи всё время, специалиста по направлению называем до договора.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ финал ============ -->
+  <section class="sec" id="start" style="padding-top:0">
+    <div class="wrap">
+      <div class="final glow g-peach" data-reveal>
+        <div>
+          <span class="tag"><i aria-hidden="true"></i>Ответ в день заявки</span>
+          <h2 class="h2" style="margin-top:20px">Расскажите задачу</h2>
+          <p class="lead">Состав работ, вилка цены и сроки по этапам. Бесплатно и без обязательств.</p>
+          <ul class="checks" style="margin-top:28px"><li>Ответ в день заявки</li><li>Смета до договора, без скрытых доплат</li><li>Оплата по принятым этапам</li></ul>
+        </div>
+        <div class="form-glass">
+          <form class="form" data-form>
+            <div class="form__row">
+              <div class="field" data-field><label for="f-name">Как к вам обращаться</label><input id="f-name" name="name" autocomplete="name" placeholder="Анна" required data-msg="Напишите, как к вам обращаться"><p data-err></p></div>
+              <div class="field" data-field><label for="f-contact">Телефон или Telegram</label><input id="f-contact" name="contact" autocomplete="tel" placeholder="+7 999 000-00-00" required data-msg="Оставьте телефон или @ник"><p data-err></p></div>
+            </div>
+            <div class="field" data-field><label for="f-task">Задача</label><textarea id="f-task" name="task" placeholder="Что продаёте и что нужно сделать"></textarea></div>
+            <button class="btn btn--dark" type="submit">Получить расчёт</button>
+            <small>Нажимая кнопку, вы соглашаетесь с <a href="#">политикой обработки данных</a>.</small>
+          </form>
+          <div class="sent" data-sent hidden tabindex="-1"><span data-icon="check-circle"></span><h3>Заявка заполнена</h3><p>Это стенд дизайна — отсюда заявка никуда не уходит. На рабочем сайте здесь будет «Ответим сегодня».</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__panel glass">
+      <div><a class="logo" href="index.html">foksten</a><p class="muted" style="margin:14px 0 0;max-width:30ch;font-size:15px">Цифровое агентство: сайт, реклама, ИИ и 1С — одной командой.</p></div>
+      <div><h4>Услуги</h4><ul><li><a href="#services">Сайты</a></li><li><a href="marketplace.html">WB и Ozon</a></li><li><a href="#services">ИИ-боты</a></li></ul></div>
+      <div><h4>Агентство</h4><ul><li><a href="#works">Работы</a></li><li><a href="#plan">Этапы</a></li><li><a href="#faq">Вопросы</a></li></ul></div>
+      <div><h4>Связь</h4><ul><li><a href="#start">Оставить заявку</a></li></ul></div>
+    </div>
+    <div class="foot__mark" aria-hidden="true">foksten</div>
+    <div class="foot__legal"><span>© 2026 Foksten</span><span>Работаем по договору · маркировка рекламы (erid)</span></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -178,5 +178,59 @@
   "500",
   "normal",
   "latin-ext"
+ ],
+ "onest-cyrillic-300-normal.woff2": [
+  "onest",
+  "300",
+  "normal",
+  "cyrillic"
+ ],
+ "onest-latin-300-normal.woff2": [
+  "onest",
+  "300",
+  "normal",
+  "latin"
+ ],
+ "onest-latin-ext-300-normal.woff2": [
+  "onest",
+  "300",
+  "normal",
+  "latin-ext"
+ ],
+ "onest-cyrillic-400-normal.woff2": [
+  "onest",
+  "400",
+  "normal",
+  "cyrillic"
+ ],
+ "onest-latin-400-normal.woff2": [
+  "onest",
+  "400",
+  "normal",
+  "latin"
+ ],
+ "onest-latin-ext-400-normal.woff2": [
+  "onest",
+  "400",
+  "normal",
+  "latin-ext"
+ ],
+ "onest-cyrillic-500-normal.woff2": [
+  "onest",
+  "500",
+  "normal",
+  "cyrillic"
+ ],
+ "onest-latin-500-normal.woff2": [
+  "onest",
+  "500",
+  "normal",
+  "latin"
+ ],
+ "onest-latin-ext-500-normal.woff2": [
+  "onest",
+  "500",
+  "normal",
+  "latin-ext"
  ]
 }
