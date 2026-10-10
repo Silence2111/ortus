@@ -1,7 +1,7 @@
 {
   "_": "Единственное место, где живут домен и контакты. Всё остальное — шаблоны. Любое поле можно переопределить переменной окружения: SITE_ORIGIN, SITE_EMAIL, SITE_TELEGRAM, SITE_WHATSAPP, SITE_PHONE, SITE_LEGAL, SITE_METRIKA_ID, SITE_DESIGN.",
 
-  "origin": "https://a3.201-34-159-41.nip.io",
+  "origin": "https://foksten.ru",
   "email": "",
   "telegram": "",
   "whatsapp": "",
