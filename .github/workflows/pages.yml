@@ -1,13 +1,11 @@
-# Публикация витрины на GitHub Pages.
+# GitHub Pages для а3 — переадресация на прод, а не копия сайта.
 #
-# Зачем workflow, а не «Pages из ветки main». Pages раздал бы корень репозитория,
-# то есть ИСХОДНИКИ: шаблоны с {{SITE_ORIGIN}} и условными блоками. Раздавать
-# нужно dist/ — результат build.mjs. Именно из-за этого на silence2111.github.io
-# полгода висела версия до чистки: с canonical на ortus.ru, домен чужой компании.
-#
-# Адрес берётся из переменной репозитория SITE_ORIGIN
-# (Settings → Secrets and variables → Actions → Variables). Не задана —
-# сборка падает нарочно, чтобы витрина не уехала с враньём в разметке.
+# Сайт живёт на российской коробке (деплой/выкатить.sh): зарубежный хостинг —
+# а Pages зарубежный — ТСПУ для посетителей из РФ обрывает на ~16 КБ, страница
+# открывается белым экраном. Раньше здесь полгода висела первая версия сайта
+# с canonical на ortus.ru, домен чужой компании. Теперь на каждую старую
+# страницу — заглушка с canonical и переходом на ту же страницу прода
+# (адрес — site.config.json → origin).
 
 name: Pages
 
@@ -35,19 +33,11 @@ jobs:
           node-version: '22'
       - name: Тесты витрины
         run: npm test
-      - name: Сборка
-        env:
-          SITE_ORIGIN: ${{ vars.SITE_ORIGIN }}
-          SITE_EMAIL: ${{ vars.SITE_EMAIL }}
-          SITE_TELEGRAM: ${{ vars.SITE_TELEGRAM }}
-          SITE_WHATSAPP: ${{ vars.SITE_WHATSAPP }}
-          SITE_PHONE: ${{ vars.SITE_PHONE }}
-          SITE_LEGAL: ${{ vars.SITE_LEGAL }}
-          SITE_METRIKA_ID: ${{ vars.SITE_METRIKA_ID }}
-        run: npm run build
+      - name: Заглушки-переадресации на прод
+        run: node деплой/pages-переадресация.mjs pages
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: pages
 
   deploy:
     needs: build

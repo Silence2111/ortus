@@ -14,11 +14,12 @@
 # хранятся последние пять.
 set -euo pipefail
 
+cd "$(dirname "$0")/.."
 HOST="${HOST:-lerti}"
-ORIGIN="${SITE_ORIGIN:-https://a3.201-34-159-41.nip.io}"
+ORIGIN="${SITE_ORIGIN:-$(node -p "require('./site.config.json').origin" 2>/dev/null || true)}"
+[[ -n "$ORIGIN" ]] || { echo "адрес сайта не задан: site.config.json → origin"; exit 1; }
 NAME="${ORIGIN#https://}"
 BASE=/var/www/a3
-cd "$(dirname "$0")/.."
 
 if [[ "${1:-}" == "--откат" ]]; then
   ssh "$HOST" "set -e; cd $BASE/releases; prev=\$(ls -1t | sed -n 2p); [ -n \"\$prev\" ] || { echo 'предыдущего выпуска нет'; exit 1; }
@@ -45,7 +46,7 @@ if [[ "${1:-}" == "--nginx" ]]; then
 fi
 
 REL="$(date -u +%Y%m%d-%H%M%S)-$REV"
-tar -C "$TMP/site" -czf - . | ssh "$HOST" "set -e; mkdir -p $BASE/releases/$REL; tar -xzf - -C $BASE/releases/$REL
+COPYFILE_DISABLE=1 tar --no-xattrs -C "$TMP/site" -czf - . | ssh "$HOST" "set -e; mkdir -p $BASE/releases/$REL; tar --no-same-owner -xzf - -C $BASE/releases/$REL
   ln -sfn $BASE/releases/$REL $BASE/current.tmp && mv -T $BASE/current.tmp $BASE/current
   cd $BASE/releases && ls -1t | tail -n +6 | xargs -r rm -rf"
 

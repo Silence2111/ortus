@@ -32,7 +32,7 @@ const DIST = process.env.SITE_DIST || join(ROOT, 'dist');
 /* Из сборки исключено служебное: ПРОДУКТ — рабочие документы прогона, они и в
  * robots.txt закрыты; остальное — сама сборка и её тесты. studio — исходники
  * варианта «Студия», он собирается отдельно и только вместе с переключателем. */
-const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', 'деплой', '.DS_Store',
+const SKIP = new Set(['.git', 'dist', 'pages', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', 'деплой', '.DS_Store',
                       'build.mjs', 'site.config.json', 'README.md', '.gitignore',
                       'package.json', '.github']);
 
