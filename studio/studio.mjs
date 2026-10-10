@@ -11,8 +11,10 @@
  *     получаются преобразованием исходной страницы: тексты берутся из неё,
  *     поэтому правка текста в исходнике сама доезжает до «Студии».
  *
- * Собирается только вместе с переключателем (SITE_SKINS=1). Страницы закрыты
- * от индексации (noindex), canonical ведёт на исходную страницу.
+ * С 10.10.2026 «Студия» — основной дизайн сайта (site.config.json → design):
+ * обычная сборка кладёт её страницы в корень вместо исходных. Сборка стенда
+ * (SITE_SKINS=1) по-прежнему держит все варианты рядом: исходные в корне,
+ * «Студию» в studio/ с noindex — чтобы их можно было сравнить в любой момент.
  *
  * Иконки — studio/icons, линейные из дизайн-системы без цветной подложки.
  * В разметке пишется <i data-i="имя"></i>, сборка вставляет SVG. */
@@ -271,9 +273,7 @@ function headFrom(base) {
 <meta name="robots" content="noindex, nofollow">
 <script>document.documentElement.classList.add('st-js')</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23000'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3E%D0%B03%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700&display=swap">
+<link rel="preload" href="fonts/wix-madefor-display-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="studio.css">
 <link rel="stylesheet" href="../skins.css">`;
 }
@@ -472,9 +472,25 @@ function handPage(file, fragment, baseIndex) {
 
 /* ── сборка ───────────────────────────────────────────────────────────────── */
 
+/* Где «Студия» живёт в сборке:
+ *   stand — dist/studio/ рядом с исходными страницами, с переключателем и noindex;
+ *   root  — основной дизайн сайта: страницы в корне вместо исходных, без
+ *           переключателя, индексируются, стили и скрипт — в dist/studio/. */
+function placeAtRoot(html) {
+  return html
+    .replace(/<meta name="robots" content="noindex, nofollow">\n/, '')
+    .replace(/<link rel="stylesheet" href="\.\.\/skins\.css">\n?/, '')
+    .replace(/<script src="\.\.\/skins\.js" defer><\/script>\n?/, '')
+    .replace(' data-studio>', '>')
+    .replace('href="studio.css"', 'href="studio/studio.css"')
+    .replace('href="fonts/', 'href="studio/fonts/')
+    .replace('src="studio.js"', 'src="studio/studio.js"')
+    .replace(/(href|src)="\.\.\//g, '$1="');
+}
+
 /* Возвращает [{ rel, text }] — готовые к render() страницы «Студии».
  * Сам render и аудит делает build.mjs, как и для остальных страниц. */
-export function studioPages(root) {
+export function studioPages(root, place = 'stand') {
   const pages = readdirSync(root).filter((f) => f.endsWith('.html')).sort();
   const baseIndex = readFileSync(join(root, 'index.html'), 'utf8');
   const out = [];
@@ -482,10 +498,14 @@ export function studioPages(root) {
     const base = readFileSync(join(root, file), 'utf8');
     const hand = join(HERE, 'pages', file);
     const parts = existsSync(hand) ? handPage(file, readFileSync(hand, 'utf8'), baseIndex) : transformPage(file, base);
-    out.push({ rel: join('studio', file), file, text: expandIcons(page({ file, base, ...parts })) });
+    const html = expandIcons(page({ file, base, ...parts }));
+    out.push(place === 'root'
+      ? { rel: file, file, text: placeAtRoot(html) }
+      : { rel: join('studio', file), file, text: html });
   }
   return out;
 }
 
-/* Статика «Студии», которая копируется как есть */
+/* Статика «Студии»: текст проходит через render, шрифты копируются байт в байт */
 export const STUDIO_ASSETS = ['studio.css', 'studio.js'];
+export const STUDIO_FONTS = readdirSync(join(HERE, 'fonts')).filter((f) => !f.startsWith('.'));

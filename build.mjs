@@ -23,7 +23,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFileSync, rmSync } from 'node:fs';
 import { join, dirname, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { studioPages, STUDIO_ASSETS } from './studio/studio.mjs';
+import { studioPages, STUDIO_ASSETS, STUDIO_FONTS } from './studio/studio.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 // SITE_DIST — только для тестов: собрать во временную папку, не трогая dist/
@@ -32,7 +32,7 @@ const DIST = process.env.SITE_DIST || join(ROOT, 'dist');
 /* Из сборки исключено служебное: ПРОДУКТ — рабочие документы прогона, они и в
  * robots.txt закрыты; остальное — сама сборка и её тесты. studio — исходники
  * варианта «Студия», он собирается отдельно и только вместе с переключателем. */
-const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', '.DS_Store',
+const SKIP = new Set(['.git', 'dist', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', 'деплой', '.DS_Store',
                       'build.mjs', 'site.config.json', 'README.md', '.gitignore',
                       'package.json', '.github']);
 
@@ -58,6 +58,7 @@ export function readConfig(env = process.env, root = ROOT) {
     legal:     pick('SITE_LEGAL', 'legal'),
     metrikaId: pick('SITE_METRIKA_ID', 'metrikaId'),
     skins:     pick('SITE_SKINS', 'skins'),
+    design:    pick('SITE_DESIGN', 'design') || 'aurora',
   };
 }
 
@@ -98,6 +99,9 @@ export function validate(cfg) {
   }
   if (cfg.email && !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(cfg.email)) {
     errors.push(`SITE_EMAIL = «${cfg.email}» — не похоже на адрес почты.`);
+  }
+  if (cfg.design && !['aurora', 'studio'].includes(cfg.design)) {
+    errors.push(`SITE_DESIGN = «${cfg.design}» — бывает aurora (исходные страницы) или studio.`);
   }
   if (cfg.metrikaId && !/^\d{5,10}$/.test(cfg.metrikaId)) {
     errors.push(`SITE_METRIKA_ID = «${cfg.metrikaId}» — номер счётчика это только цифры.`);
@@ -223,8 +227,11 @@ function main() {
   const problems = [];
   let text = 0, bin = 0;
 
+  // На сайте для клиентов переключателя нет — и его файлов тоже.
+  const skinFiles = new Set(['skins.css', 'skins.js']);
   for (const src of files) {
     const rel = relative(ROOT, src);
+    if (!flags.skins && skinFiles.has(rel)) continue;
     const dst = join(DIST, rel);
     mkdirSync(dirname(dst), { recursive: true });
     if (TEXT.has(extname(src).toLowerCase())) {
@@ -238,20 +245,24 @@ function main() {
     }
   }
 
-  /* «Студия» — отдельный набор страниц в dist/studio/. Только для стенда:
-   * без переключателя на неё не попасть, поэтому без него она и не собирается. */
+  /* «Студия»: на стенде (SITE_SKINS=1) — отдельный набор страниц в
+   * dist/studio/ рядом с исходными; на сайте для клиентов при design=studio —
+   * основной дизайн, её страницы ложатся в корень поверх исходных. */
   let studio = 0;
-  if (flags.skins) {
-    for (const { rel, text } of studioPages(ROOT)) {
+  const studioPlace = flags.skins ? 'stand' : cfg.design === 'studio' ? 'root' : '';
+  if (studioPlace) {
+    for (const { rel, text } of studioPages(ROOT, studioPlace)) {
       const out = render(text, vars, flags);
       problems.push(...auditOutput(rel, out));
       mkdirSync(dirname(join(DIST, rel)), { recursive: true });
       writeFileSync(join(DIST, rel), out);
       studio++;
     }
+    mkdirSync(join(DIST, 'studio', 'fonts'), { recursive: true });
     for (const a of STUDIO_ASSETS) {
       writeFileSync(join(DIST, 'studio', a), render(readFileSync(join(ROOT, 'studio', a), 'utf8'), vars, flags));
     }
+    for (const f of STUDIO_FONTS) copyFileSync(join(ROOT, 'studio', 'fonts', f), join(DIST, 'studio', 'fonts', f));
   }
 
   if (problems.length) {
@@ -262,7 +273,8 @@ function main() {
   }
 
   console.log(`dist/ готов: ${text} текстовых файлов, ${bin} файлов без изменений.`);
-  if (studio) console.log(`Вариант «Студия» — страниц в dist/studio/: ${studio}.`);
+  if (studio && studioPlace === 'stand') console.log(`Стенд: все варианты, «Студия» — страниц в dist/studio/: ${studio}.`);
+  if (studio && studioPlace === 'root') console.log(`Дизайн «Студия»: страниц в корне: ${studio}.`);
   console.log(`Домен: ${cfg.origin}`);
   if (!flags.channels) console.log('Прямых контактов нет — на странице контактов только форма.');
   if (!cfg.metrikaId) console.log('Метрика выключена.');

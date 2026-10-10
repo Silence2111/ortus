@@ -64,7 +64,8 @@ describe('ссылки «Студии»', () => {
         if (u.startsWith('#')) { assert.ok(ids.has(u.slice(1)), `${p.file}: якорь ${u} никуда не ведёт`); continue; }
         const путь = u.split('#')[0].split('?')[0];
         if (путь.startsWith('../')) assert.ok(есть.has(путь.slice(3).split('/')[0]), `${p.file}: «${u}» — нет такого файла витрины`);
-        else assert.ok(страницы.includes(путь) || ['studio.css', 'studio.js'].includes(путь), `${p.file}: «${u}» — нет такой страницы «Студии»`);
+        else assert.ok(страницы.includes(путь) || ['studio.css', 'studio.js'].includes(путь)
+          || (путь.startsWith('fonts/') && existsSync(join(HERE, путь))), `${p.file}: «${u}» — нет такой страницы «Студии»`);
       }
     }
   });
@@ -140,16 +141,41 @@ describe('«Студия» и витрина для клиентов', () => {
     return dir;
   };
 
-  test('без переключателя «Студия» в сборку не попадает', () => {
-    const dir = собратьВ({ SITE_SKINS: '' });
-    try { assert.ok(!existsSync(join(dir, 'studio')), 'dist/studio есть в сборке для клиентов'); }
+  test('с дизайном aurora «Студия» в сборку не попадает', () => {
+    const dir = собратьВ({ SITE_SKINS: '', SITE_DESIGN: 'aurora' });
+    try { assert.ok(!existsSync(join(dir, 'studio')), 'dist/studio есть в сборке с исходным дизайном'); }
     finally { rmSync(dir, { recursive: true, force: true }); }
+  });
+
+  /* С 10.10.2026 «Студия» — основной дизайн. На сайте для клиентов её страницы
+   * лежат в корне: без переключателя, без noindex, без путей «../» (они
+   * остались бы от стенда и вели бы за пределы сайта). */
+  test('основной дизайн «Студия»: страницы в корне, без переключателя и запрета индексации', () => {
+    const dir = собратьВ({ SITE_SKINS: '', SITE_DESIGN: 'studio' });
+    try {
+      const есть = new Set(readdirSync(dir));
+      assert.deepEqual(readdirSync(join(dir, 'studio')).sort(), ['fonts', 'studio.css', 'studio.js']);
+      assert.ok(!есть.has('skins.js') && !есть.has('skins.css'), 'файлы переключателя попали на сайт');
+      for (const f of страницы) {
+        const t = readFileSync(join(dir, f), 'utf8');
+        assert.match(t, /class="st-nav"/, `${f}: в корне не «Студия»`);
+        assert.ok(!/noindex/.test(t), `${f}: страница закрыта от индексации`);
+        assert.ok(!/skins\.(js|css)/.test(t), `${f}: подключён переключатель`);
+        assert.ok(!/(href|src)="\.\.\//.test(t), `${f}: путь «../» ведёт за пределы сайта`);
+        assert.ok(!/fonts\.(googleapis|gstatic)\.com/.test(t), `${f}: шрифт тянется с Google`);
+        for (const m of t.matchAll(/(?:href|src)="([^"#][^"]*)"/g)) {
+          const u = m[1];
+          if (/^(https?:|mailto:|tel:|data:|\/\/)/.test(u)) continue;
+          assert.ok(есть.has(u.split('#')[0].split('?')[0].split('/')[0]), `${f}: «${u}» — нет такого файла`);
+        }
+      }
+    } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 
   test('с переключателем собирается полностью, вместе со стилями и скриптом', () => {
     const dir = собратьВ({ SITE_SKINS: '1' });
     try {
-      for (const f of [...страницы, 'studio.css', 'studio.js']) assert.ok(existsSync(join(dir, 'studio', f)), `нет studio/${f}`);
+      for (const f of [...страницы, 'studio.css', 'studio.js', 'fonts/wix-madefor-display-cyrillic.woff2']) assert.ok(existsSync(join(dir, 'studio', f)), `нет studio/${f}`);
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 
