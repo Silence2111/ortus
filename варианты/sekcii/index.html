@@ -121,6 +121,7 @@ section.s{padding-block:104px 0}
 .prod .win{border-radius:12px;background:var(--sunk);aspect-ratio:16/10;max-width:100%;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
 .win .bar{display:flex;gap:5px;align-items:center}
 .win .bar i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.wl{transform-origin:left center}
 .win .bar span{margin-left:8px;font:400 11px var(--mono);color:var(--muted)}
 .win .body{flex:1;border-radius:8px;background:var(--paper);padding:12px;display:flex;flex-direction:column;gap:7px;min-height:0}
 .wl{height:8px;border-radius:4px;background:var(--sunk)}
@@ -359,11 +360,43 @@ footer{margin-top:104px;background:var(--inv);color:var(--inv-ink);padding-block
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/motion@13.4.3/dist/motion.js"></script>
+<script>
+// Движение (Motion): меню выезжает строками, прайс и шаги проявляются при прокрутке,
+// в окнах наших продуктов «догружаются» строки. Без отскоков: это студия, а не игра.
+window.fx = (() => {
+  const M = window.Motion;
+  if (!M || matchMedia('(prefers-reduced-motion: reduce)').matches) return { menu() {} };
+  const ease = [0.16, 1, 0.3, 1];
+  const up = (els, d = 14, step = 0.06, delay = 0) => M.animate(els, { opacity: [0, 1], y: [d, 0] }, { duration: 0.6, ease, delay: M.stagger(step, { startDelay: delay }) });
+
+  // первый экран: два бесплатных шага подъезжают вслед за заголовком
+  up(document.querySelectorAll('.steps-first .ticket'), 16, 0.1, 0.15);
+
+  M.inView('.menu-group', (g) => up(g.querySelectorAll('header, .item'), 12, 0.05), { amount: 0.2 });
+  M.inView('.track', (t) => up(t.querySelectorAll('.stp'), 12, 0.09), { amount: 0.3 });
+  M.inView('.pay', (p) => up(p.children, 8, 0.05), { amount: 0.5 });
+  M.inView('.products', (p) => {
+    up(p.querySelectorAll('.prod'), 16, 0.08);
+    M.animate(p.querySelectorAll('.wl'), { scaleX: [0, 1] }, { duration: 0.7, ease, delay: M.stagger(0.04, { startDelay: 0.25 }) });
+  }, { amount: 0.25 });
+  M.inView('.ask', (a) => up(a, 16), { amount: 0.3 });
+
+  return {
+    // полноэкранное меню: подложка проявляется, пункты поднимаются лесенкой
+    menu(ov) {
+      M.animate(ov, { opacity: [0, 1] }, { duration: 0.2 });
+      up(ov.querySelectorAll('.ov-list li'), 26, 0.05, 0.05);
+      up(ov.querySelectorAll('.ov-side > *'), 12, 0.08, 0.2);
+    },
+  };
+})();
+</script>
 <script>
 (() => {
   const $ = (s) => document.querySelector(s);
   const ov = $('#overlay'), open = $('#open-menu');
-  const setMenu = (on) => { ov.hidden = !on; open.setAttribute('aria-expanded', String(on)); document.body.style.overflow = on ? 'hidden' : ''; if (on) $('#close-menu').focus(); else open.focus(); };
+  const setMenu = (on) => { ov.hidden = !on; open.setAttribute('aria-expanded', String(on)); document.body.style.overflow = on ? 'hidden' : ''; if (on) { $('#close-menu').focus(); window.fx?.menu(ov); } else open.focus(); };
   open.addEventListener('click', () => setMenu(true));
   $('#close-menu').addEventListener('click', () => setMenu(false));
   ov.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
