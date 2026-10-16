@@ -51,6 +51,6 @@ COPYFILE_DISABLE=1 tar --no-xattrs -C "$TMP/site" -czf - . | ssh "$HOST" "set -e
   cd $BASE/releases && ls -1t | tail -n +6 | xargs -r rm -rf"
 
 # Проверка с самой коробки: с мака nip.io идёт через VPN и врёт.
-ssh "$HOST" "for p in / /cases.html /uslugi.html /studio/studio.css /stend/ /stend/studio/index.html; do
+ssh "$HOST" "for p in / /cases.html /uslugi.html /razrabotka-sajtov.html /vozduh/vozduh.css /vozduh/fonts/golos-text-cyrillic-400-normal.woff2 /stend/ /stend/vozduh/index.html; do
   printf '%-28s %s\n' \"\$p\" \"\$(curl -s -o /dev/null -w '%{http_code} %{size_download}Б %{time_total}с' https://$NAME\$p)\"; done"
 echo "выпуск $REL → https://$NAME/  ·  стенд: https://$NAME/stend/"
