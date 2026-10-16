@@ -24,6 +24,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFile
 import { join, dirname, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { studioPages, STUDIO_ASSETS, STUDIO_FONTS } from './studio/studio.mjs';
+import { vozduhPages, VOZDUH_ASSETS, VOZDUH_FONTS } from './vozduh/vozduh.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 // SITE_DIST — только для тестов: собрать во временную папку, не трогая dist/
@@ -32,7 +33,7 @@ const DIST = process.env.SITE_DIST || join(ROOT, 'dist');
 /* Из сборки исключено служебное: ПРОДУКТ — рабочие документы прогона, они и в
  * robots.txt закрыты; остальное — сама сборка и её тесты. studio — исходники
  * варианта «Студия», он собирается отдельно и только вместе с переключателем. */
-const SKIP = new Set(['.git', 'dist', 'pages', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', 'деплой', 'варианты', '.DS_Store',
+const SKIP = new Set(['.git', 'dist', 'pages', 'node_modules', 'ПРОДУКТ', 'тесты', 'studio', 'vozduh', 'деплой', 'варианты', '.DS_Store',
                       'build.mjs', 'site.config.json', 'README.md', '.gitignore',
                       'package.json', '.github']);
 
@@ -100,8 +101,8 @@ export function validate(cfg) {
   if (cfg.email && !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(cfg.email)) {
     errors.push(`SITE_EMAIL = «${cfg.email}» — не похоже на адрес почты.`);
   }
-  if (cfg.design && !['aurora', 'studio'].includes(cfg.design)) {
-    errors.push(`SITE_DESIGN = «${cfg.design}» — бывает aurora (исходные страницы) или studio.`);
+  if (cfg.design && !['aurora', 'studio', 'vozduh'].includes(cfg.design)) {
+    errors.push(`SITE_DESIGN = «${cfg.design}» — бывает aurora (исходные страницы), studio или vozduh.`);
   }
   if (cfg.metrikaId && !/^\d{5,10}$/.test(cfg.metrikaId)) {
     errors.push(`SITE_METRIKA_ID = «${cfg.metrikaId}» — номер счётчика это только цифры.`);
@@ -265,6 +266,25 @@ function main() {
     for (const f of STUDIO_FONTS) copyFileSync(join(ROOT, 'studio', 'fonts', f), join(DIST, 'studio', 'fonts', f));
   }
 
+  /* «Воздух» (основной дизайн с 16.10.2026): то же устройство, что у «Студии» —
+   * на стенде в dist/vozduh/, на сайте для клиентов при design=vozduh — в корне. */
+  let vozduh = 0;
+  const vozduhPlace = flags.skins ? 'stand' : cfg.design === 'vozduh' ? 'root' : '';
+  if (vozduhPlace) {
+    for (const { rel, text } of vozduhPages(ROOT, vozduhPlace)) {
+      const out = render(text, vars, flags);
+      problems.push(...auditOutput(rel, out));
+      mkdirSync(dirname(join(DIST, rel)), { recursive: true });
+      writeFileSync(join(DIST, rel), out);
+      vozduh++;
+    }
+    mkdirSync(join(DIST, 'vozduh', 'fonts'), { recursive: true });
+    for (const a of VOZDUH_ASSETS) {
+      writeFileSync(join(DIST, 'vozduh', a), render(readFileSync(join(ROOT, 'vozduh', a), 'utf8'), vars, flags));
+    }
+    for (const f of VOZDUH_FONTS) copyFileSync(join(ROOT, 'vozduh', 'fonts', f), join(DIST, 'vozduh', 'fonts', f));
+  }
+
   if (problems.length) {
     console.error('\nСобрано, но результат публиковать нельзя:\n');
     for (const p of problems) console.error('  • ' + p);
@@ -275,6 +295,8 @@ function main() {
   console.log(`dist/ готов: ${text} текстовых файлов, ${bin} файлов без изменений.`);
   if (studio && studioPlace === 'stand') console.log(`Стенд: все варианты, «Студия» — страниц в dist/studio/: ${studio}.`);
   if (studio && studioPlace === 'root') console.log(`Дизайн «Студия»: страниц в корне: ${studio}.`);
+  if (vozduh && vozduhPlace === 'stand') console.log(`Стенд: «Воздух» — страниц в dist/vozduh/: ${vozduh}.`);
+  if (vozduh && vozduhPlace === 'root') console.log(`Дизайн «Воздух»: страниц в корне: ${vozduh}.`);
   console.log(`Домен: ${cfg.origin}`);
   if (!flags.channels) console.log('Прямых контактов нет — на странице контактов только форма.');
   if (!cfg.metrikaId) console.log('Метрика выключена.');
